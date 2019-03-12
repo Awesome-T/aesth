@@ -15,3 +15,13 @@ API需求场景
 API设计参考f2, bizgoblin
 
 添加f2，bizgoblin协议
+
+
+
+Canvas绘图属性用Paint和TextStyle类
+
+需要处理 5 | ‘100%’ | 'auto' 和 5 | [5, 10]类型的输入
+
+以google/chart 0.6.0为基础
+
+1. 将charts_common与charts_flutter中的基础类整体迁移，charts_common移至lib/src/common
