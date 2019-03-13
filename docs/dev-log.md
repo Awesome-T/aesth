@@ -25,3 +25,7 @@ Canvas绘图属性用Paint和TextStyle类
 以google/chart 0.6.0为基础
 
 1. 将charts_common与charts_flutter中的基础类整体迁移，charts_common移至lib/src/common
+
+common代码改动
+
+lib\src\common\cartesian\cartesian_chart.dart中makeDefaultRenderer需要一个可实例化的SeriesRenderer，先返回null，以便取消对BarRenderer的依赖
