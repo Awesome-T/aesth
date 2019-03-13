@@ -20,7 +20,13 @@ API设计参考f2, bizgoblin
 
 Canvas绘图属性用Paint和TextStyle类
 
-需要处理 5 | ‘100%’ | 'auto' 和 5 | [5, 10]类型的输入
+需要处理 5 | ‘100%’ | 'auto' 和 5 | [5, 10]联合类型的输入
+
+联合类型可采用副命名参数的方式，主名字给最常用的类型，其它的给跟上类型的副名字，逻辑添加优先级
+
+
+
+
 
 以google/chart 0.6.0为基础
 
@@ -29,3 +35,7 @@ Canvas绘图属性用Paint和TextStyle类
 common代码改动
 
 lib\src\common\cartesian\cartesian_chart.dart中makeDefaultRenderer需要一个可实例化的SeriesRenderer，先返回null，以便取消对BarRenderer的依赖
+
+flutter代码改动
+
+lib\src\chart\chart_container.dart中的reconfigure不做TimeSeriesChart的判断，先返回null
