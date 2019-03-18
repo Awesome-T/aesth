@@ -26,9 +26,9 @@ default(padding): null(auto)
 
 type: List<D>
 
-**defs**
+**scales**
 
-type: Map<String, Scale>
+type: List<Scale>
 
 **coord**
 
@@ -38,13 +38,13 @@ default: RectCoord()
 
 **axes**
 
-type: Map<String, Axis>
+type: List<Axis>
 
 **geoms**
 
 type: List<Geoms>
 
-**legend** TODO
+**legend**
 
 type: Legend
 
@@ -63,6 +63,10 @@ type: List<Guide>
 ### Scale
 
 ---
+
+**field | fieldList**
+
+type: String | List<String>
 
 **formatter**
 
@@ -132,6 +136,10 @@ default: 'YYYY-MM-DD' (contract with formatter)
 
 
 
+
+
+
+
 ### Coord
 
 ---
@@ -142,7 +150,7 @@ default: 'YYYY-MM-DD' (contract with formatter)
 
 ---
 
-**reansposed**
+**transposed**
 
 type: bool
 
@@ -184,6 +192,10 @@ default: 0
 
 ---
 
+**field | fieldList**
+
+type: String | List<String>
+
 **show**
 
 type: bool
@@ -192,9 +204,9 @@ default: true
 
 **position**
 
-type: CoarsePositions
+type: AxisPosition
 
-default: CoarsePositions.bottom for x, CoarsePositions.left for y
+default: AxisPosition.bottom for x, AxisPosition.left for y
 
 **line**
 
@@ -616,25 +628,41 @@ type: (x,y,title,items,chart) => void
 
 **min**
 
-type: double
+type: num
 
 default: 0.0
 
 **max**
 
-type: double
+type: num
 
 default: 1.0
 
 
 
-### ColorMap
+### Attr
 
 ---
 
-**field**
+**field | fieldList**
 
-type: String
+type: String | List<String>
+
+**valueList | value | valueFunc**
+
+type: List<V> | V | (datum) => V
+
+
+
+### Position : Attr
+
+---
+
+
+
+### Color : Attr
+
+---
 
 **colorList | color | colorFunc | Gradient**
 
@@ -642,13 +670,9 @@ type: List\<[Color](https://docs.flutter.io/flutter/dart-ui/Color-class.html)\> 
 
 
 
-### ShapeMap
+### Shape : Attr
 
 ---
-
-**field**
-
-type: String
 
 **shapeList | shape | ShapeFunc**
 
@@ -656,13 +680,9 @@ type: List<Shape> | Shape | (value) => Shape
 
 
 
-### SizeMap
+### Size : Attr
 
 ---
-
-**field**
-
-type: String
 
 **min**
 
@@ -694,11 +714,11 @@ type: D | num | statsFeatures
 
 
 
-### Type Emuns
+### Type Enums
 
 ---
 
-**CoarsePositions**
+**AxisPosition**
 
 top
 
@@ -710,7 +730,7 @@ left
 
 
 
-**CoarseDirects**
+**CoarseDirect**
 
 topLeft
 
@@ -732,7 +752,7 @@ Left
 
 
 
-**AlignTypes**
+**AlignType**
 
 start
 
@@ -742,7 +762,7 @@ end
 
 
 
-**StatsFeatures**
+**StatsFeature**
 
 max
 

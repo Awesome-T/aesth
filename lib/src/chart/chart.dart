@@ -36,7 +36,7 @@ class Chart<D> extends StatefulWidget {
     this.padding,
     this.paddingPercent,
     this.data,
-    this.defs,
+    this.scales,
     this.coord,
     this.axes,
     this.geoms,
@@ -56,11 +56,11 @@ class Chart<D> extends StatefulWidget {
 
   final List<D> data;
 
-  final Map<String, Scale> defs;
+  final List<Scale> scales;
 
   final Coord coord;
 
-  final Map<String, Axis> axes;
+  final List<Axis> axes;
 
   final List<Geom> geoms;
 
@@ -73,4 +73,3 @@ class Chart<D> extends StatefulWidget {
   @override
   BaseChartState createState() => BaseChartState();
 }
-
