@@ -62,6 +62,10 @@ axis是与field映射的，一个field只能有一个axis
 
 
 
+Guide的位置是相对于coord的，因此GuideAnchor的点指的是coord上的点，与geom无关，x,y轴与scale都取第一个
+
+
+
 元素采用继承模式，命名是小类型加大类型，Geom省略大类型
 
 
@@ -98,7 +102,13 @@ timeCat可接受三种类型的值，int(TimeStamp), String(必须符合mask)，
 
 
 
-到了axis完成
+用户可定制的才会直接传入实例，比如回调函数，指明内置类型的，用XXXMode枚举进行设置
+
+需要传入参数的需要用实例
+
+
+
+枚举类型尽量就近定义专属的，复用没有必要也不便拓展
 
 ---
 
@@ -130,6 +140,12 @@ lib\src\chart\chart_container.dart中的reconfigure不做TimeSeriesChart的判�
 
 跨src下的一级目录了就用package:
 
+文件名尽量以类名
+
+
+
+
+
 
 
 TODO
@@ -139,3 +155,4 @@ typedef统一添加
 所有默认值统一添加
 
 所有num, int, double的细化
+

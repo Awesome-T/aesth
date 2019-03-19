@@ -1,14 +1,7 @@
 import 'package:aesth/src/base.dart';
+import 'package:aesth/src/util/measures.dart';
 
 typedef ScaleFormatter<F> = String Function(F value);
-
-class ScaleRange {
-  ScaleRange(this.min, this.max);
-
-  final num min;
-
-  final num max;
-}
 
 abstract class Scale<F> extends FieldAttachable {
   Scale({
@@ -27,7 +20,7 @@ abstract class Scale<F> extends FieldAttachable {
 
   final ScaleFormatter formatter;
 
-  final ScaleRange range;
+  final Range range;
 
   final String alias;
 

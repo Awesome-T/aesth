@@ -258,9 +258,9 @@ type: bool
 
 default: true
 
-**position | positionList**
+**position**
 
-type: String | List<String>
+type: Position
 
 **color**
 
@@ -280,7 +280,7 @@ TODO
 
 **style | styleFunc**
 
-type:  [Paint](https://docs.flutter.io/flutter/dart-ui/Paint-class.html) | (value) => [Paint](https://docs.flutter.io/flutter/dart-ui/Paint-class.html) 
+type:  [Paint](https://docs.flutter.io/flutter/dart-ui/Paint-class.html) | (datum) => [Paint](https://docs.flutter.io/flutter/dart-ui/Paint-class.html) 
 
 
 
@@ -404,7 +404,7 @@ default: Offset(0, 0)
 
 **direct**
 
-type: CoarseDirects
+type: TagGuideDirect
 
 default: null
 
@@ -432,9 +432,9 @@ type: [Paint](https://docs.flutter.io/flutter/dart-ui/Paint-class.html)
 
 ---
 
-**dataKey**
+**field | fieldList**
 
-type: String
+type: String | List<String>
 
 **show**
 
@@ -444,15 +444,15 @@ default: true(if dataKey is set, false apply to it, else false apply to all)
 
 **position**
 
-type: CoarsePositions
+type: LegendPosition
 
-default: CoarsePositions.top
+default: LegendPosition.top
 
 **align**
 
-type: AlignTypes
+type: AlignMode
 
-default: AlignTypes.start(for top/bottom position), AlignTypes.center(for left/right position)
+default: AlignMode.start(for top/bottom position), AlignMode.center(for left/right position)
 
 **itemWidth**
 
@@ -654,23 +654,23 @@ type: List<V> | V | (datum) => V
 
 
 
-### Position : Attr
+### PositionAttr : Attr
 
 ---
 
 
 
-### Color : Attr
+### ColorAttr : Attr
 
 ---
 
-**colorList | color | colorFunc | Gradient**
+**colorList | color | colorFunc | gradient**
 
 type: List\<[Color](https://docs.flutter.io/flutter/dart-ui/Color-class.html)\> | [Color](https://docs.flutter.io/flutter/dart-ui/Color-class.html) | (value) => [Color](https://docs.flutter.io/flutter/dart-ui/Color-class.html) | [Gradient](https://docs.flutter.io/flutter/painting/Gradient-class.html) 
 
 
 
-### Shape : Attr
+### ShapeAttr : Attr
 
 ---
 
@@ -680,21 +680,11 @@ type: List<Shape> | Shape | (value) => Shape
 
 
 
-### Size : Attr
+### SizeAttr : Attr
 
 ---
 
-**min**
 
-type: num
-
-default: 0
-
-**max**
-
-type: num
-
-default: 10
 
 **size | sizeFunc**
 
@@ -704,13 +694,19 @@ default: null, if not null, max and min are invalid
 
 
 
+**range**
+
+type: Range
+
+
+
 ### GuideAnchor
 
 ---
 
-**xValue | xPercent | xFeature**
+**x | xPercent | xMeasure**
 
-type: D | num | statsFeatures
+type: F | num | statsMeasure
 
 
 
@@ -730,7 +726,19 @@ left
 
 
 
-**CoarseDirect**
+**LegendPosition**
+
+top
+
+right
+
+bottom
+
+left
+
+
+
+**TagGuideDirect**
 
 topLeft
 
@@ -746,13 +754,13 @@ bottom
 
 bottomLeft
 
-Left
+left
 
 
 
 
 
-**AlignType**
+**AlignMode**
 
 start
 
@@ -762,7 +770,7 @@ end
 
 
 
-**StatsFeature**
+**StatsMeasure**
 
 max
 

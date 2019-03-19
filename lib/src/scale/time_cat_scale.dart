@@ -1,3 +1,5 @@
+import 'package:aesth/src/util/measures.dart';
+
 import 'scale.dart';
 import 'cat_scale.dart';
 
@@ -6,7 +8,7 @@ class TimeCatScale<F> extends CatScale<F> {
     String field,
     List<String> fieldList,
     ScaleFormatter formatter,
-    ScaleRange range,
+    Range range,
     String alias,
     List<String> ticks,
     int tickCount,

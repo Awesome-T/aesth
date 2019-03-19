@@ -1,3 +1,5 @@
+import 'package:aesth/src/util/measures.dart';
+
 import 'scale.dart';
 
 class LinearScale extends Scale<num> {
@@ -5,7 +7,7 @@ class LinearScale extends Scale<num> {
     String field,
     List<String> fieldList,
     ScaleFormatter formatter,
-    ScaleRange range,
+    Range range,
     String alias,
     List<String> ticks,
     int tickCount,
