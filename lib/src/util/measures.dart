@@ -5,9 +5,3 @@ class Range {
 
   final num max;
 }
-
-enum AlignMode {
-  start,
-  center,
-  end,
-}

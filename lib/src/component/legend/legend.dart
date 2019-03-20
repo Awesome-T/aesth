@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:aesth/src/base.dart';
-import 'package:aesth/src/util/measures.dart';
+import 'package:aesth/src/util/modes.dart';
+
+import 'legend_item.dart';
 
 enum LegendPosition {
   top,
@@ -12,8 +14,40 @@ enum LegendPosition {
 
 typedef LegendItemFormatter = String Function(String text);
 
+typedef LegendClickCallback = void Function(Object event);
+
 abstract class Legend extends FieldAttachable {
-  final bool show;
+  Legend({
+    String field,
+    List<String> fieldList,
+
+    this.position,
+    this.align,
+    this.itemWidth,
+    this.showTitle,
+    this.titleStyle,
+    this.offset,
+    this.titleGap,
+    this.itemGap,
+    this.itemMarginBottom,
+    this.wordSpace,
+    this.unCheckColor,
+    this.itemFormatter,
+    this.marker,
+    this.nameStyle,
+    this.valueStyle,
+    this.joinString,
+    this.triggerOn,
+    this.triggerOnList,
+    this.selectedMode,
+    this.clickable,
+    this.onClick,
+    this.custom,
+    this.items
+  }) : super(
+    field: field,
+    fieldList: fieldList,
+  );
 
   final LegendPosition position;
 
@@ -38,4 +72,27 @@ abstract class Legend extends FieldAttachable {
   final Color unCheckColor;
 
   final LegendItemFormatter itemFormatter;
+
+  // TODO
+  final Object marker;
+
+  final TextStyle nameStyle;
+
+  final TextStyle valueStyle;
+
+  final String joinString;
+
+  final GestureMode triggerOn;
+
+  final List<GestureMode> triggerOnList;
+
+  final SelectedMode selectedMode;
+
+  final bool clickable;
+
+  final LegendClickCallback onClick;
+
+  final bool custom;
+
+  final List<LegendItem> items;
 }

@@ -520,9 +520,17 @@ type: [TextStyle](https://docs.flutter.io/flutter/dart-ui/TextStyle-class.html)
 
 type: [TextStyle](https://docs.flutter.io/flutter/dart-ui/TextStyle-class.html) 
 
+**joinString**
+
+type: String
+
 **triggerOn**
 
 TODO
+
+**selectedMode**
+
+type: SelectedMode
 
 **clickable**
 
@@ -549,6 +557,12 @@ type: List<LegendItem> (when custom is true)
 ### ToolTip
 
 ---
+
+**alwaysShow**
+
+type: bool
+
+default: false
 
 **offset**
 
@@ -606,6 +620,10 @@ type: bool
 
 type: Shape
 
+**custom**
+
+type: bool
+
 **onShow**
 
 type: (x,y,title,items,chart) => void
@@ -618,9 +636,27 @@ type: (x,y,title,items,chart) => void
 
 type: (x,y,title,items,chart) => void
 
+**crosshairsType**
 
+**showXTip**
 
+type: bool
 
+**showYTip**
+
+type: bool
+
+**xTip | xTipFunc**
+
+**yTip | yTipFunc**
+
+**xTipBackground**
+
+**yTipBackground**
+
+**snap**
+
+type: bool
 
 ### ScaleRange
 
