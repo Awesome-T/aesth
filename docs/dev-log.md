@@ -16,7 +16,7 @@ API需求场景
 
 API设计参考f2, bizgoblin
 
-添加f2，bizgoblin协议
+添加f2，bizgoblin协议 添加vector_math协议
 
 
 
@@ -141,6 +141,20 @@ lib\src\chart\chart_container.dart中的reconfigure不做TimeSeriesChart的判�
 跨src下的一级目录了就用package:
 
 文件名尽量以类名
+
+
+
+1.完成graphic图形引擎，确定shape的类型
+
+实现基于charts，抽象的概念借鉴f2，从两者连接的概念入手，先对common进行连接概念的改造
+
+目前看最大的连接就是canvas，先尝试实现graphic/shape
+
+
+
+vector2直接使用vector_math
+
+matrix继承vector_math的vector
 
 
 
