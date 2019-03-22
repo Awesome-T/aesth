@@ -156,7 +156,19 @@ vector2直接使用vector_math
 
 matrix继承vector_math的vector
 
+所有操作遵循vector_math直接在原对象上操作的模式
 
+
+
+贝塞尔在Path类中有相关的
+
+BBox bbox
+
+Vector2要继承添加一个方法，角度注意用angleToSigned
+
+
+
+贝塞尔曲线，smooth方法创建穿过所有点的三阶贝塞尔曲线，获取的sp对象是为方便canvas的bezierCurveTo方法使用
 
 
 
