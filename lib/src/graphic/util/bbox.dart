@@ -1,10 +1,60 @@
 import 'dart:math' as math;
 
 import 'vector2.dart' show Vector2;
+import 'smooth.dart' show SmoothPath;
 
-final start = Vector2.create();
-final end = Vector2.create();
-final extremity = Vector2.create();
+final _start = Vector2.create();
+final _end = Vector2.create();
+final _extremity = Vector2.create();
+
+math.Point _cubicN(num t, math.Point a, math.Point b, math.Point c, math.Point d) {
+  final t2 = t * t;
+  final t3 = t2 * t;
+  return a 
+    + (a * -3 + (a * 3 - a * t) * t) * t
+    + (b * 3 + (b * -6 + b * 3 * t) * t) * t
+    + (c * 3 - c * 3 * t) * t2 + d * t3;
+}
+
+math.Point _getCubicBezierXYatT(
+  math.Point startPt,
+  math.Point controlPt1,
+  math.Point controlPt2,
+  math.Point endPt,
+  num t,
+) => _cubicN(t, startPt, controlPt1, controlPt2, endPt);
+
+BBox _cubicBezierBounds(SmoothPath c) {
+  var minX = double.infinity;
+  var maxX = double.negativeInfinity;
+  var minY = double.infinity;
+  var maxY = double.negativeInfinity;
+  final s = c.p0;
+  final c1 = c.cp1;
+  final c2 = c.cp2;
+  final e = c.p;
+  for (var t = 0; t < 100; t++) {
+    final pt =_getCubicBezierXYatT(s, c1, c2, e, t / 100);
+    if (pt.x < minX) {
+      minX = pt.x;
+    }
+    if (pt.x > maxX) {
+      maxX = pt.x;
+    }
+    if (pt.y < minY) {
+      minY = pt.y;
+    }
+    if (pt.y > maxY) {
+      maxY = pt.y;
+    }
+  }
+  return BBox(
+    minX,
+    minY,
+    maxX,
+    maxY,
+  );
+}
 
 class BBox {
   BBox(this.minX, this.minY, this.maxX, this.maxY);
@@ -60,16 +110,16 @@ class BBox {
       );
     }
 
-    start[0] = math.cos(startAngle) * r + x;
-    start[1] = math.sin(startAngle) * r + y;
+    _start[0] = math.cos(startAngle) * r + x;
+    _start[1] = math.sin(startAngle) * r + y;
 
-    end[0] = math.cos(endAngle) * r + x;
-    end[1] = math.sin(endAngle) * r + y;
+    _end[0] = math.cos(endAngle) * r + x;
+    _end[1] = math.sin(endAngle) * r + y;
     final min = Vector2.create();
     final max = Vector2.create();
 
-    Vector2.min(start, end, min);
-    Vector2.max(start, end, max);
+    Vector2.min(_start, _end, min);
+    Vector2.max(_start, _end, max);
 
     // Thresh to [0, Math.PI * 2]
     startAngle = startAngle % (math.pi * 2);
@@ -94,11 +144,11 @@ class BBox {
 
     for (var angle = 0.0; angle < endAngle; angle += math.pi / 2.0) {
       if (angle > startAngle) {
-        extremity[0] = math.cos(angle) * r + x;
-        extremity[1] = math.sin(angle) * r + y;
+        _extremity[0] = math.cos(angle) * r + x;
+        _extremity[1] = math.sin(angle) * r + y;
 
-        Vector2.min(min, extremity, min);
-        Vector2.max(max, extremity, max);
+        Vector2.min(min, _extremity, min);
+        Vector2.max(max, _extremity, max);
       }
     }
 
@@ -107,6 +157,37 @@ class BBox {
       min[1],
       max[0],
       max[1],
+    );
+  }
+
+  factory BBox.getBBoxFromBezierGroup(List<SmoothPath> points, [num lineWidth = 0]) {
+    var minX = double.infinity;
+    var maxX = double.negativeInfinity;
+    var minY = double.infinity;
+    var maxY = double.negativeInfinity;
+    for (final point in points) {
+      final bbox = _cubicBezierBounds(point);
+      if (bbox.minX < minX) {
+        minX = bbox.minX;
+      }
+      if (bbox.maxX > maxX) {
+        maxX = bbox.maxX;
+      }
+      if (bbox.minY < minY) {
+        minY = bbox.minY;
+      }
+      if (bbox.maxY > maxY) {
+        maxY = bbox.maxY;
+      }
+    }
+
+    final lineWidth_ = lineWidth / 2;
+
+    return BBox(
+      minX - lineWidth_,
+      minY - lineWidth_,
+      maxX + lineWidth_,
+      maxY + lineWidth_,
     );
   }
 
