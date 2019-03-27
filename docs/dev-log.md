@@ -174,6 +174,10 @@ bbox使用自己写的贝塞尔函数，smooth中直接用Path类中的方法
 
 
 
+**注意所有坐标系y轴是向下的**，math.Rectangle也是如此，top是最小值
+
+
+
 
 
 TODO

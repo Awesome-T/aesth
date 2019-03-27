@@ -29,6 +29,10 @@ class Vector2 extends vector_math.Vector2 {
       ..y = min.y + a * (max.y - min.y);
   }
 
+  factory Vector2.fromPoint(math.Point point) => Vector2.create()..setValues(point.x, point.y);
+
+  math.Point toPoint() => math.Point(x, y);
+
   void transformMat2d(Matrix m) {
 
     final x = this[0];
