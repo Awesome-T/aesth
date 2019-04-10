@@ -164,7 +164,9 @@ matrix继承vector_math的vector
 
 BBox bbox
 
-Vector2要继承添加一个方法，角度注意用angleToSigned
+Vector2采用完全拷贝的形式，否则难以处理运算符的返回值类型
+
+角度注意用angleToSigned
 
 
 

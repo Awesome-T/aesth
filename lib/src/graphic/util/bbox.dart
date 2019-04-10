@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'vector2.dart' show Vector2;
 import 'smooth.dart' show SmoothPath;
 
-final _start = Vector2.create();
-final _end = Vector2.create();
-final _extremity = Vector2.create();
+final _start = Vector2.zero();
+final _end = Vector2.zero();
+final _extremity = Vector2.zero();
 
 math.Point _cubicN(num t, math.Point a, math.Point b, math.Point c, math.Point d) {
   final t2 = t * t;
@@ -115,8 +115,8 @@ class BBox {
 
     _end[0] = math.cos(endAngle) * r + x;
     _end[1] = math.sin(endAngle) * r + y;
-    final min = Vector2.create();
-    final max = Vector2.create();
+    final min = Vector2.zero();
+    final max = Vector2.zero();
 
     Vector2.min(_start, _end, min);
     Vector2.max(_start, _end, max);

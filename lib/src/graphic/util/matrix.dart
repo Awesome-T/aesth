@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 import 'dart:math' as math;
 
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart' show Vector;
 import 'package:vector_math/hash.dart' as quiver;
+
+import 'vector2.dart' show Vector2;
 
 enum TransActionType {
   translate,
