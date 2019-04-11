@@ -33,15 +33,12 @@ List<math.Point> _smoothBezier(
   Vector2 prevVector;
   Vector2 nextVector;
   final hasConstraint = (constraint != null);
-  var min;
-  var max;
+  Vector2 min;
+  Vector2 max;
   Vector2 vector;
-  var len;
-  var l;
-  var i;
   if (hasConstraint) {
-    min = [ double.infinity, double.infinity ];
-    max = [ double.negativeInfinity, double.negativeInfinity ];
+    min = Vector2(double.infinity, double.infinity);
+    max = Vector2(double.negativeInfinity, double.negativeInfinity);
 
     for (final point in points) {
       vector = Vector2.fromPoint(point);
@@ -52,7 +49,8 @@ List<math.Point> _smoothBezier(
     Vector2.max(max, Vector2.fromPoint(constraint.bottomRight), min);
   }
 
-  for (var i = 0, len = points.length; i < len; i++) {
+  final len = points.length;
+  for (var i = 0; i < len; i++) {
     vector = Vector2.fromPoint(points[i]);
     if (isLoop) {
       prevVector = Vector2.fromPoint(points[i > 0 ? i - 1 : len - 1]);
@@ -99,3 +97,36 @@ List<math.Point> _smoothBezier(
   }
   return cps;
 }
+
+List<SmoothDest> _catmullRom2bezier(
+  List<math.Point> pointList,
+  bool z,
+  [math.Rectangle constraint,]
+) {
+  final isLoop = z;
+
+  final controlPointList = _smoothBezier(pointList, 0.4, isLoop, constraint);
+  final len = pointList.length;
+  final d1 = <SmoothDest>[];
+
+  math.Point cp1;
+  math.Point cp2;
+  math.Point p;
+
+  for (var i = 0; i < len; i++) {
+    cp1 = controlPointList[i * 2];
+    cp2 = controlPointList[i * 2 + 1];
+    p = pointList[i + 1];
+    d1.add(SmoothDest(cp1, cp2, p));
+  }
+
+  if (isLoop) {
+    cp1 = controlPointList[len];
+    cp2 = controlPointList[len + 1];
+    p = pointList[0];
+    d1.add(SmoothDest(cp1, cp2, p));
+  }
+  return d1;
+}
+
+final smooth = _catmullRom2bezier;
