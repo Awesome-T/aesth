@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 import 'dart:math' as math;
 
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart' show Vector;
 import 'package:vector_math/hash.dart' as quiver;
+
+import 'vector2.dart' show Vector2;
 
 enum TransActionType {
   translate,
@@ -20,11 +22,11 @@ class TransAction {
 /// A Vector of 6 elements handles linear transformation of Vector2.
 /// Extends from vector_math.Vector.
 class Matrix extends Vector {
-  final Float32List _matstorage;
+  final Float64List _matstorage;
 
   /// The components of the vector.
   @override
-  Float32List get storage => _matstorage;
+  Float64List get storage => _matstorage;
 
   /// Construct a new vector with the specified values.
   factory Matrix(double m11, double m12, double m21, double m22, double dx, double dy) =>
@@ -35,7 +37,7 @@ class Matrix extends Vector {
       new Matrix.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
-  Matrix.zero() : _matstorage = new Float32List(6);
+  Matrix.zero() : _matstorage = new Float64List(6);
 
   /// Constructs the identity vector.
   /// Set M to identity matrix, D to zero vector
@@ -44,13 +46,13 @@ class Matrix extends Vector {
   /// Copy of [other].
   factory Matrix.copy(Matrix other) => new Matrix.zero()..setFrom(other);
 
-  /// Constructs Matrix with given Float32List as [storage].
-  Matrix.fromFloat32List(this._matstorage);
+  /// Constructs Matrix with given Float64List as [storage].
+  Matrix.fromFloat64List(this._matstorage);
 
   /// Constructs Matrix with a [storage] that views given [buffer] starting at
-  /// [offset]. [offset] has to be multiple of [Float32List.bytesPerElement].
+  /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Matrix.fromBuffer(ByteBuffer buffer, int offset)
-      : _matstorage = new Float32List.view(buffer, offset, 6);
+      : _matstorage = new Float64List.view(buffer, offset, 6);
 
   /// Set the values of the vector.
   void setValues(double m11_, double m12_, double m21_, double m22_, double dx_, double dy_) {

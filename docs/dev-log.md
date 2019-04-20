@@ -152,7 +152,7 @@ lib\src\chart\chart_container.dart中的reconfigure不做TimeSeriesChart的判�
 
 
 
-vector2直接使用vector_math
+vector2使用vector_math 64版的
 
 matrix继承vector_math的vector
 
@@ -164,13 +164,21 @@ matrix继承vector_math的vector
 
 BBox bbox
 
-Vector2要继承添加一个方法，角度注意用angleToSigned
+Vector2采用完全拷贝的形式，否则难以处理运算符的返回值类型
+
+角度注意用angleToSigned
 
 
 
 贝塞尔曲线，smooth方法创建穿过所有点的三阶贝塞尔曲线，获取的sp对象是为方便canvas的bezierCurveTo方法使用
 
-贝塞尔曲线的绘制用path
+bbox使用自己写的贝塞尔函数，smooth中直接用Path类中的方法
+
+
+
+**注意所有坐标系y轴是向下的**，math.Rectangle也是如此，top是最小值
+
+
 
 
 
