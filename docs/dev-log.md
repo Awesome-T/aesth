@@ -170,7 +170,7 @@ Vector2要继承添加一个方法，角度注意用angleToSigned
 
 贝塞尔曲线，smooth方法创建穿过所有点的三阶贝塞尔曲线，获取的sp对象是为方便canvas的bezierCurveTo方法使用
 
-
+贝塞尔曲线的绘制用path
 
 
 
