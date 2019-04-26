@@ -1,5 +1,5 @@
-const maxCount = 8;
-const subCount = 4;
+const _maxCount = 8;
+const _subCount = 4;
 
 List<T> _getSimpleArray<T>(List<T> data) =>
   List.from(data);
@@ -28,7 +28,7 @@ class CatAutoRst {
   final List ticks;
 }
 
-CatAutoRst catAuto(bool isRounding, List data, [int maxCount = maxCount]) {
+CatAutoRst catAuto({bool isRounding, List data, int maxCount = _maxCount}) {
   var ticks = [];
   final categories = _getSimpleArray(data);
   final length = categories.length;
@@ -38,8 +38,8 @@ CatAutoRst catAuto(bool isRounding, List data, [int maxCount = maxCount]) {
     tickCount = _getGreatestFactor(length - 1, maxCount - 1) + 1;
     if (tickCount == 2) {
       tickCount = maxCount;
-    } else if (tickCount < maxCount - subCount) {
-      tickCount = maxCount - subCount;
+    } else if (tickCount < maxCount - _subCount) {
+      tickCount = maxCount - _subCount;
     }
   } else {
     tickCount = maxCount;
@@ -53,6 +53,25 @@ CatAutoRst catAuto(bool isRounding, List data, [int maxCount = maxCount]) {
     var i = 0;
     final groups = categories.map((e) {
       return i % step == 0 ? categories.sublist(i, i + step) : null;
-    })
+    }).where((e) {
+      return e.isNotEmpty;
+    }).toList();
+
+    for (
+      var i = 1, groupLen = groups.length;
+      (i < groupLen) && (isRounding ? i * step < length - step : i < tickCount -1);
+      i++
+    ) {
+      ticks.add(groups[i][0]);
+    }
+    if (categories.isNotEmpty) {
+      ticks.insert(0, categories[0]);
+      final last = categories.last;
+      if (!ticks.contains(last)) {
+        ticks.add(last);
+      }
+    }
   }
+
+  return CatAutoRst(categories, ticks);
 }
