@@ -24,20 +24,22 @@ abstract class Scale<F> extends FieldAttachable {
   }) : super(
     field: field,
     fieldList: fieldList,
-  );
+  ) {
+    this.init();
+  }
 
   final type = 'base';
 
-  final ScaleFormatter formatter;
+  ScaleFormatter formatter;
 
-  final Range range;
+  Range range;
 
-  final String alias;
+  String alias;
 
-  final List<F> ticks;
-  final int tickCount;
+  List<F> ticks;
+  int tickCount;
 
-  List values = [];
+  void init();
 
   // Only value param used.
   String getText(F value) {
@@ -52,7 +54,7 @@ abstract class Scale<F> extends FieldAttachable {
   List<TickObj> getTicks() {
     final ticks = this.ticks;
     final rst = <TickObj>[];
-    ticks.forEach((tick) {
+    ticks?.forEach((tick) {
       final obj = TickObj<F>(
         this.getText(tick),
         tick,
@@ -67,9 +69,17 @@ abstract class Scale<F> extends FieldAttachable {
 
   double rangeMax() => this.range.max;
 
-  double invert(double value);
+  F invert(double value);
 
-  double translate(F value);
+  num translate(F value);
 
   Scale<F> clone();
+
+  /// In dart explicitly set class fields
+  ///   before using change() method
+  Scale change() {
+    this.ticks = null;
+    this.init();
+    return this;
+  }
 }

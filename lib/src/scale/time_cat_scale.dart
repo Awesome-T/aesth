@@ -3,7 +3,7 @@ import 'package:aesth/src/util/measures.dart';
 import 'scale.dart';
 import 'cat_scale.dart';
 
-class TimeCatScale<F> extends CatScale<F> {
+class TimeCatScale extends CatScale {
   TimeCatScale({
     String field,
     List<String> fieldList,
@@ -11,15 +11,16 @@ class TimeCatScale<F> extends CatScale<F> {
     Range range,
     String alias,
     List<String> ticks,
-    int tickCount,
-    List<F> values,
+    int tickCount = 5,
+    List<String> values,
     bool isRouding,
 
+    this.sortable = true,
     this.nice,
     this.min,
     this.max,
     this.tickInterval,
-    this.mask,
+    this.mask = 'YYYY-MM-DD',
   }) : super(
     field: field,
     fieldList: fieldList,
@@ -32,13 +33,17 @@ class TimeCatScale<F> extends CatScale<F> {
     isRouding: isRouding,
   );
 
-  final bool nice;
+  final type = 'timeCat';
 
-  final num min;
+  bool sortable;
 
-  final num max;
+  bool nice;
 
-  final num tickInterval;
+  num min;
 
-  final String mask;
+  num max;
+
+  num tickInterval;
+
+  String mask;
 }

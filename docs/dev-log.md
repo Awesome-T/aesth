@@ -184,6 +184,20 @@ bbox使用自己写的贝塞尔函数，smooth中直接用Path类中的方法
 
 
 
+**scale**
+
+仅写f2中用到的
+
+成员初始化的原则是：构造函数仅暴露Api需要的，构造函数中有的在构造函数中初始化，没有的在定义时初始化，表征类特性的如type设为final
+
+凡是f2用了util.each的，要用?.处理null情况
+
+ticks用F的
+
+cat类型都是String，timeCat是特殊的string
+
+
+
 
 
 TODO
