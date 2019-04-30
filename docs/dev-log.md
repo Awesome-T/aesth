@@ -196,6 +196,10 @@ ticks用F的
 
 cat类型都是String，timeCat是特殊的string
 
+time-cat内部处理用TimeStemp，用intel.DateFormatter进行字符串的转换
+
+对field的解析根据mask，默认'YYYY-MM-DD'，显示结果有formatter就用formatter，否则用mask
+
 
 
 
