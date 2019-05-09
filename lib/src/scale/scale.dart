@@ -51,9 +51,9 @@ abstract class Scale<F> extends FieldAttachable {
 
   double scale(F value);
 
-  List<TickObj> getTicks() {
+  List<TickObj<F>> getTicks() {
     final ticks = this.ticks;
-    final rst = <TickObj>[];
+    final rst = <TickObj<F>>[];
     ticks?.forEach((tick) {
       final obj = TickObj<F>(
         this.getText(tick),

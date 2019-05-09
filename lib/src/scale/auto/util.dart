@@ -1,12 +1,19 @@
+const decimalLength = 12;
+
 double _getFactor(num v) {
   var factor = 1.0;
   if (v == double.infinity || v == double.negativeInfinity) {
     throw Exception('Not support Infinity!');
   }
   if (v < 1) {
+    var count = 0;
     while (v < 1) {
       factor = factor / 10;
       v = v * 10;
+      count++;
+    }
+    if (factor.toString().length > decimalLength) {
+      factor = double.parse(factor.toStringAsFixed(count));
     }
   } else {
     while (v > 10) {
@@ -20,8 +27,7 @@ double _getFactor(num v) {
 
 // Less then current value.
 num _arrayFloor(List<num> values, num value) {
-  final length = values.length;
-  if(length == 0) {
+  if (values == null || values.length == 0) {
     return double.nan;
   }
 
@@ -46,8 +52,7 @@ num _arrayFloor(List<num> values, num value) {
 
 // First greater then current value.
 num _arrayCeiling(List<num> values, num value) {
-  final length = values.length;
-  if(length == 0) {
+  if (values == null || values.length == 0) {
     return double.nan;
   }
 
@@ -76,6 +81,9 @@ enum SnapType {
 }
 
 num snapTo(List<num> values, num value) {
+  if (values == null || values.length == 0) {
+    return double.nan;
+  }
   final floorVal = _arrayFloor(values, value);
   final ceilingVal = _arrayCeiling(values, value);
   if (floorVal.isNaN || ceilingVal.isNaN) {
@@ -99,7 +107,7 @@ num snapFloor(List<num> values, num value) =>
 num snapCeiling(List<num> values, num value) =>
   _arrayCeiling(values, value);
 
-num snapFactorTo(num v, List<num> arr, SnapType snapType) {
+num snapFactorTo(num v, List<num> arr, [SnapType snapType]) {
   if (v.isNaN) {
     return double.nan;
   }
@@ -121,13 +129,16 @@ num snapFactorTo(num v, List<num> arr, SnapType snapType) {
   } else {
     v = snapTo(arr, v);
   }
-
-  final rst = v * factor;
-
+  var rst = v * factor;
+  if (factor.abs() < 1 && rst.toString().length > decimalLength) {
+    final decimalVal = 1 ~/ factor;
+    final symbol = factor > 0 ? 1 : -1;
+    rst = v / decimalVal * symbol;
+  }
   return rst;
 }
 
-num snapMultiple(num v, num base, SnapType snapType) {
+num snapMultiple(num v, num base, [SnapType snapType]) {
   var div;
   if (snapType == SnapType.ceil) {
     div = (v / base).ceil();

@@ -32,9 +32,9 @@ NumberAutoRst numberAuto({
   int maxCount = _maxCount,
   num minLimit = double.negativeInfinity,
   num maxLimit = double.infinity,
-  List snapArray,
+  List<num> snapArray,
 }) {
-  final ticks = [];
+  final ticks = <num>[];
   final isFixedCount = minCount == maxCount;
   var avgCount = (minCount + maxCount) ~/ 2;
   var count = avgCount;
