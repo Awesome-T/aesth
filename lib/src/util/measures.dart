@@ -1,7 +1,7 @@
 class Range {
-  Range(this.min, this.max);
+  const Range(this.min, this.max);
 
-  final num min;
+  final double min;
 
-  final num max;
+  final double max;
 }

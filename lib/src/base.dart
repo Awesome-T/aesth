@@ -10,7 +10,7 @@ class GraphicOperator {
 
 abstract class FieldAttachable {
   FieldAttachable({String field, List<String> fieldList})
-    : fields = (field == null)
+    : fields = (field != null)
       ? field.split(GraphicOperator.cross)
       : fieldList;
 

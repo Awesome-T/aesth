@@ -1,8 +1,15 @@
+import 'dart:math' as math;
+
 const _maxCount = 8;
 const _subCount = 4;
 
-List<T> _getSimpleArray<T>(List<T> data) =>
-  List.from(data);
+List _getSimpleArray(List data) {
+  if (data is List) {
+    return data.expand((item) => item).toList();
+  }
+  return List.from(data);
+}
+  
 
 int _getGreatestFactor(int count, int number) {
   var i;
@@ -28,7 +35,7 @@ class CatAutoRst {
   final List ticks;
 }
 
-CatAutoRst catAuto({bool isRounding, List data, int maxCount = _maxCount}) {
+CatAutoRst catAuto({bool isRounding = false, List data, int maxCount = _maxCount}) {
   var ticks = [];
   final categories = _getSimpleArray(data);
   final length = categories.length;
@@ -52,9 +59,11 @@ CatAutoRst catAuto({bool isRounding, List data, int maxCount = _maxCount}) {
 
     var i = 0;
     final groups = categories.map((e) {
-      return i % step == 0 ? categories.sublist(i, i + step) : null;
+      final rst = (i % step == 0) ? categories.sublist(i, math.min(i + step, length)) : null;
+      i++;
+      return rst;
     }).where((e) {
-      return e.isNotEmpty;
+      return e != null;
     }).toList();
 
     for (

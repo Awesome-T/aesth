@@ -35,7 +35,11 @@ NumberAutoRst numberAuto({
   List<num> snapArray,
 }) {
   final ticks = <num>[];
+  minCount ??= _minCount;
+  maxCount ??= _maxCount;
   final isFixedCount = minCount == maxCount;
+  minLimit ??= double.negativeInfinity;
+  maxLimit ??= double.infinity;
   var avgCount = (minCount + maxCount) ~/ 2;
   var count = avgCount;
   snapArray ??= (isFixedCount ? _snapCountArray : _snapArray);

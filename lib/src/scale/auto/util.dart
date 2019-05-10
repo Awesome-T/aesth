@@ -1,4 +1,4 @@
-const decimalLength = 12;
+const _decimalLength = 12;
 
 double _getFactor(num v) {
   var factor = 1.0;
@@ -12,7 +12,7 @@ double _getFactor(num v) {
       v = v * 10;
       count++;
     }
-    if (factor.toString().length > decimalLength) {
+    if (factor.toString().length > _decimalLength) {
       factor = double.parse(factor.toStringAsFixed(count));
     }
   } else {
@@ -130,7 +130,7 @@ num snapFactorTo(num v, List<num> arr, [SnapType snapType]) {
     v = snapTo(arr, v);
   }
   var rst = v * factor;
-  if (factor.abs() < 1 && rst.toString().length > decimalLength) {
+  if (factor.abs() < 1 && rst.toString().length > _decimalLength) {
     final decimalVal = 1 ~/ factor;
     final symbol = factor > 0 ? 1 : -1;
     rst = v / decimalVal * symbol;

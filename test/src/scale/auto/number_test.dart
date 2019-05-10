@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:aesth/src/scale/auto/number.dart' as auto;
+import 'package:aesth/src/scale/auto/number.dart' show numberAuto;
 
 main() {
   group('test number auto', () {
     test('no interval', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         max: 10,
       );
@@ -13,7 +13,7 @@ main() {
     });
 
     test('no interval no nice', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 1,
         max: 9.5,
       );
@@ -21,7 +21,7 @@ main() {
     });
 
     test('no interval, max : 11', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 1,
         max: 11,
       );
@@ -29,7 +29,7 @@ main() {
     });
 
     test('with interval', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         interval: 5,
         max: 10,
@@ -38,7 +38,7 @@ main() {
     });
 
     test('with interval not nice, larger', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 1.2,
         interval: 5,
         max: 11.5,
@@ -47,14 +47,14 @@ main() {
     });
 
     test('with interval, not the multiple of interval', () {
-      var rst = auto.numberAuto(
+      var rst = numberAuto(
         min: 0,
         interval: 6,
         max: 10,
       );
       expect(rst.ticks, [ 0, 6, 12 ]);
 
-      rst = auto.numberAuto(
+      rst = numberAuto(
         min: 3,
         interval: 6,
         max: 11,
@@ -63,7 +63,7 @@ main() {
     });
 
     test('max < 0, min < 0', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: -100,
         interval: 20,
         max: -10,
@@ -72,7 +72,7 @@ main() {
     });
 
     test('with count', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         minCount: 3,
         maxCount: 4,
@@ -82,7 +82,7 @@ main() {
     });
 
     test('with count', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         minCount: 5,
         maxCount: 5,
@@ -92,13 +92,13 @@ main() {
     });
 
     test('max equals min', () {
-      var rst = auto.numberAuto(
+      var rst = numberAuto(
         min: 100,
         max: 100,
       );
       expect(rst.ticks, [ 0, 20, 40, 60, 80, 100 ]);
 
-      rst = auto.numberAuto(
+      rst = numberAuto(
         min: 0,
         max: 0,
       );
@@ -106,7 +106,7 @@ main() {
     });
 
     test('max equals min', () {
-      var rst = auto.numberAuto(
+      var rst = numberAuto(
         min: -10,
         max: -10,
       );
@@ -115,7 +115,7 @@ main() {
     });
 
     test('very little', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0.0002,
         minCount: 3,
         maxCount: 4,
@@ -125,7 +125,7 @@ main() {
     });
 
     test('very little minus', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: -0.0010,
         minCount: 3,
         maxCount: 4,
@@ -135,7 +135,7 @@ main() {
     });
 
     test('tick count 5', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: -5,
         minCount: 5,
         maxCount: 5,
@@ -145,7 +145,7 @@ main() {
     });
 
     test('tick count 6', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         minCount: 6,
         maxCount: 6,
@@ -155,7 +155,7 @@ main() {
     });
 
     test('tick count 10', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         minCount: 10,
         maxCount: 10,
@@ -165,7 +165,7 @@ main() {
     });
 
     test('snapArray', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         minCount: 6,
         maxCount: 6,
@@ -176,7 +176,7 @@ main() {
     });
 
     test('tick count with limit 0', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 200,
         minCount: 5,
         maxCount: 5,
@@ -188,7 +188,7 @@ main() {
     });
 
     test('with count 5', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 0,
         minCount: 5,
         maxCount: 5,
@@ -198,7 +198,7 @@ main() {
     });
 
     test('very small and float', () {
-      var rst = auto.numberAuto(
+      var rst = numberAuto(
         min: 0,
         max: 0.0000267519,
       );
@@ -212,7 +212,7 @@ main() {
         0.00003,
       ]);
 
-      rst = auto.numberAuto(
+      rst = numberAuto(
         min: 0.0000237464,
         max: 0.0000586372
       );
@@ -230,7 +230,7 @@ main() {
     });
 
     test('minTickInterval', () {
-      final rst = auto.numberAuto(
+      final rst = numberAuto(
         min: 140,
         minTickInterval: 1,
         max: 141,

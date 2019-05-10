@@ -17,7 +17,7 @@ abstract class Scale<F> extends FieldAttachable {
     List<String> fieldList,
 
     this.formatter,
-    this.range,
+    this.range = const Range(0, 1),
     this.alias,
     this.ticks,
     this.tickCount,
@@ -44,7 +44,7 @@ abstract class Scale<F> extends FieldAttachable {
   // Only value param used.
   String getText(F value) {
     final formatter = this.formatter;
-    var rst = (formatter != null) ? formatter(value) : value?.toString;
+    var rst = (formatter != null) ? formatter(value) : value?.toString();
     rst = rst ?? '';
     return rst;
   }

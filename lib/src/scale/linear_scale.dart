@@ -21,7 +21,7 @@ class LinearScale extends Scale<num> {
     field: field,
     fieldList: fieldList,
     formatter: formatter,
-    range: range,
+    range: range ?? Range(0, 1),
     alias: alias,
     ticks: ticks,
     tickCount: tickCount,
@@ -105,7 +105,7 @@ class LinearScale extends Scale<num> {
       this.min = calTicks[0];
       this.max = calTicks.last;
     } else {
-      final ticks = [];
+      final ticks = <num>[];
       calTicks?.forEach((tick) {
         if (tick >= this.min && tick <= this.max) {
           ticks.add(tick);
@@ -124,7 +124,7 @@ class LinearScale extends Scale<num> {
   @override
   double scale(num value) {
     if (value == null) {
-      return null;
+      return double.nan;
     }
     final max = this.max;
     final min = this.min;

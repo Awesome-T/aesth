@@ -19,7 +19,7 @@ class CatScale extends Scale<String> {
     field: field,
     fieldList: fieldList,
     formatter: formatter,
-    range: range,
+    range: range ?? Range(0, 1),
     alias: alias,
     ticks: ticks,
     tickCount: tickCount,
