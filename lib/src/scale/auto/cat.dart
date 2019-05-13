@@ -4,7 +4,7 @@ const _maxCount = 8;
 const _subCount = 4;
 
 List _getSimpleArray(List data) {
-  if (data is List) {
+  if (data.first is List) {
     return data.expand((item) => item).toList();
   }
   return List.from(data);
@@ -35,8 +35,8 @@ class CatAutoRst {
   final List ticks;
 }
 
-CatAutoRst catAuto({bool isRounding = false, List data, int maxCount = _maxCount}) {
-  var ticks = [];
+CatAutoRst catAuto<F>({bool isRounding = false, List<F> data, int maxCount = _maxCount}) {
+  var ticks = <F>[];
   final categories = _getSimpleArray(data);
   final length = categories.length;
   var tickCount;

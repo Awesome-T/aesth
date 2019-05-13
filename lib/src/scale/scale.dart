@@ -30,7 +30,7 @@ abstract class Scale<F> extends FieldAttachable {
 
   final type = 'base';
 
-  ScaleFormatter formatter;
+  ScaleFormatter<F> formatter;
 
   Range range;
 
@@ -42,7 +42,7 @@ abstract class Scale<F> extends FieldAttachable {
   void init();
 
   // Only value param used.
-  String getText(F value) {
+  String getText(Object value) {
     final formatter = this.formatter;
     var rst = (formatter != null) ? formatter(value) : value?.toString();
     rst = rst ?? '';
@@ -69,15 +69,17 @@ abstract class Scale<F> extends FieldAttachable {
 
   double rangeMax() => this.range.max;
 
-  F invert(double value);
+  /// value is num return inverted F, value is F return itself
+  F invert(Object value);
 
+  /// transform F to num, used within double scale(F value)
   num translate(F value);
 
   Scale<F> clone();
 
   /// In dart explicitly set class fields
   ///   before using change() method
-  Scale change() {
+  Scale<F> change() {
     this.ticks = null;
     this.init();
     return this;

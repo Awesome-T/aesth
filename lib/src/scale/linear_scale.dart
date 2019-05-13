@@ -139,9 +139,12 @@ class LinearScale extends Scale<num> {
   }
 
   @override
-  double invert(double value) {
-    final percent = (value - this.rangeMin()) / (this.rangeMax() - this.rangeMin());
-    return this.min + percent * (this.max - this.min);
+  double invert(Object value) {
+    if (value is double) {
+      final percent = (value - this.rangeMin()) / (this.rangeMax() - this.rangeMin());
+      return this.min + percent * (this.max - this.min);
+    }
+    return double.nan;
   }
 
   @override

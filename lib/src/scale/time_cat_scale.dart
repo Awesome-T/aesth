@@ -5,16 +5,17 @@ import 'scale.dart';
 import 'cat_scale.dart';
 import './auto/cat.dart' show catAuto;
 
-class TimeCatScale extends CatScale {
+/// F could only be formatted String or timestamp int
+class TimeCatScale<F> extends CatScale<F> {
   TimeCatScale({
     String field,
     List<String> fieldList,
     ScaleFormatter formatter,
     Range range,
     String alias,
-    List<String> ticks,
+    List<F> ticks,
     int tickCount = 5,
-    List<String> values,
+    List<F> values,
     bool isRouding,
 
     this.sortable = true,
@@ -58,9 +59,8 @@ class TimeCatScale extends CatScale {
   @override
   void init() {
     final values = this.values;
-    final valuesStamp = values.map(this._toTimeStamp).toList();
     if (this.sortable) {
-      valuesStamp.sort();
+      values.sort((v1, v2) => _toTimeStamp(v1) - _toTimeStamp(v2));
     }
 
     if (this.ticks == null) {
@@ -68,7 +68,7 @@ class TimeCatScale extends CatScale {
     }
   }
 
-  List<String> calculateTicks() {
+  List<F> calculateTicks() {
     final count = this.tickCount;
     var ticks;
     if (count != null) {
@@ -86,22 +86,27 @@ class TimeCatScale extends CatScale {
   }
 
   @override
-  num translate(String value) {
-    var index = this.values.indexOf(value);
+  num translate(Object value) {
+    num index = this.values.indexOf(value);
+
     if (index == -1) {
-      index = null;
+      if (value is num && value < this.values.length) {
+        index = value;
+      } else {
+        index = double.nan;
+      }
     }
     return index;
   }
 
   @override
-  double scale(String value) {
+  double scale(Object value) {
     final rangeMin = this.rangeMin();
     final rangeMax = this.rangeMax();
     final index = this.translate(value);
 
     var percent;
-    if (this.values.length == 1 || index == null) { // is index is NAN should not be set as 0
+    if (this.values.length == 1 || index.isNaN) { // is index is NAN should not be set as 0
       percent = index;
     } else if (index > -1) {
       percent = index / (this.values.length - 1);
@@ -113,8 +118,8 @@ class TimeCatScale extends CatScale {
   }
 
   @override
-  String getText(String value) {
-    var result = '';
+  String getText(Object value) {
+    F result;
     final index = this.translate(value);
     if (index > -1) {
       result = this.values[index];
@@ -122,19 +127,20 @@ class TimeCatScale extends CatScale {
       result = value;
     }
 
+    String resultStr = '';
     final formatter = this.formatter;
     if (formatter != null) {
-      result = formatter(result);
+      resultStr = formatter(result);
     }
-    return result;
+    return resultStr;
   }
 
   @override
-  List<TickObj<String>> getTicks() {
+  List<TickObj<F>> getTicks() {
     final ticks = this.ticks;
-    final rst = <TickObj<String>>[];
+    final rst = <TickObj<F>>[];
     ticks?.forEach((tick) {
-      final obj = TickObj<String>(
+      final obj = TickObj<F>(
         this.getText(tick),
         tick,
         this.scale(tick),
@@ -144,6 +150,6 @@ class TimeCatScale extends CatScale {
     return rst;
   }
 
-  int _toTimeStamp(String value) =>
-    this._dateFormat.parse(value).millisecondsSinceEpoch;
+  int _toTimeStamp(Object value) =>
+    (value is String) ? this._dateFormat.parse(value).millisecondsSinceEpoch : value;
 }

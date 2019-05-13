@@ -192,9 +192,19 @@ bbox使用自己写的贝塞尔函数，smooth中直接用Path类中的方法
 
 凡是f2用了util.each的，要用?.处理null情况
 
-ticks用F的
 
-cat类型都是String，timeCat是特殊的string
+
+cat类型原则上都是String，timeCat是特殊的string，但为兼容timeCat直接传time的情况，他们的values和ticks都为泛型F
+
+因为scale本身是工具库，它其中的工具方法translate, scale, getText, invert保留联合类型的参数
+
+translate反查的优先级，先按timestamp 再按index再按string
+
+getText除了兼容F，还要可直传index，故类型为Object
+
+不可以动态的改变scale的F的类型，cat中values保留F类型而不会转换为String
+
+ticks是与values同类型
 
 time-cat内部处理用TimeStemp，用intel.DateFormatter进行字符串的转换
 
