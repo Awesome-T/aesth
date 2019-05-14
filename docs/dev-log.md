@@ -208,7 +208,9 @@ ticks是与values同类型
 
 time-cat内部处理用TimeStemp，用intel.DateFormatter进行字符串的转换
 
-对field的解析根据mask，默认'YYYY-MM-DD'，显示结果有formatter就用formatter，否则用mask
+对field的解析根据mask，默认'yyyy-MM-DD'，显示结果有formatter就用formatter，否则用mask，注意intl的patten规则和js不一样
+
+change为满足重载要求，传参采用Map<String, Object>
 
 
 

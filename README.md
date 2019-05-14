@@ -132,9 +132,47 @@ default: false
 
 type: String
 
-default: 'YYYY-MM-DD' (contract with formatter)
+default: 'yyyy-MM-dd' (contract with formatter)
 
+The date format is based on [intl](<https://pub.dev/documentation/intl/latest/intl/DateFormat-class.html>) , so they have the same patten string rules:
 
+```dart
+Symbol   Meaning                Presentation       Example
+------   -------                ------------       -------
+G        era designator         (Text)             AD
+y        year                   (Number)           1996
+M        month in year          (Text & Number)    July & 07
+L        standalone month       (Text & Number)    July & 07
+d        day in month           (Number)           10
+c        standalone day         (Number)           10
+h        hour in am/pm (1~12)   (Number)           12
+H        hour in day (0~23)     (Number)           0
+m        minute in hour         (Number)           30
+s        second in minute       (Number)           55
+S        fractional second      (Number)           978
+E        day of week            (Text)             Tuesday
+D        day in year            (Number)           189
+a        am/pm marker           (Text)             PM
+k        hour in day (1~24)     (Number)           24
+K        hour in am/pm (0~11)   (Number)           0
+z        time zone              (Text)             Pacific Standard Time
+Z        time zone (RFC 822)    (Number)           -0800
+v        time zone (generic)    (Text)             Pacific Time
+Q        quarter                (Text)             Q3
+'        escape for text        (Delimiter)        'Date='
+''       single quote           (Literal)          'o''clock'
+```
+
+```dart
+Format Pattern                    Result
+--------------                    -------
+"yyyy.MM.dd G 'at' HH:mm:ss vvvv" 1996.07.10 AD at 15:08:56 Pacific Time
+"EEE, MMM d, ''yy"                Wed, Jul 10, '96
+"h:mm a"                          12:08 PM
+"hh 'o''clock' a, zzzz"           12 o'clock PM, Pacific Daylight Time
+"K:mm a, vvv"                     0:00 PM, PT
+"yyyyy.MMMMM.dd GGG hh:mm aaa"    01996.July.10 AD 12:08 PM
+```
 
 
 

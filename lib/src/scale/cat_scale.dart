@@ -121,4 +121,35 @@ class CatScale<F> extends Scale<F> {
     values: this.values,
     isRouding: this.isRouding,
   );
+
+  @override
+  void changeFields(Map<String, Object> info) {
+    if (info.containsKey('field')) {
+      this.field = info['field'];
+    }
+    if (info.containsKey('fieldList')) {
+      this.fieldList = info['fieldList'];
+    }
+    if (info.containsKey('formatter')) {
+      this.formatter = info['formatter'];
+    }
+    if (info.containsKey('range')) {
+      this.range = info['range'];
+    }
+    if (info.containsKey('alias')) {
+      this.alias = info['alias'];
+    }
+    if (info.containsKey('ticks')) {
+      this.ticks = info['ticks'];
+    }
+    if (info.containsKey('tickCount')) {
+      this.tickCount = info['tickCount'];
+    }
+    if (info.containsKey('values')) {
+      this.values = info['values'];
+    }
+    if (info.containsKey('isRouding')) {
+      this.isRouding = info['isRouding'];
+    }
+  }
 }

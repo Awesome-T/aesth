@@ -14,5 +14,9 @@ abstract class FieldAttachable {
       ? field.split(GraphicOperator.cross)
       : fieldList;
 
-  final List<String> fields;
+  set field(String field) => fields = field.split(GraphicOperator.cross);
+
+  set fieldList(List<String> fieldList) => fields = fieldList;
+
+  List<String> fields;
 }

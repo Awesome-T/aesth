@@ -62,9 +62,10 @@ main() {
     });
 
     test('change', () {
-      scale.min = 10;
-      scale.max = 110;
-      scale.change();
+      scale.change({
+        'min': 10,
+        'max': 110,
+      });
       expect(scale.scale(60), 0.5);
     });
   });

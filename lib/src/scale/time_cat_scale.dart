@@ -23,7 +23,7 @@ class TimeCatScale<F> extends CatScale<F> {
     this.min,
     this.max,
     this.tickInterval,
-    String mask = 'YYYY-MM-DD',
+    String mask = 'yyyy-MM-dd',
   }) 
     : _dateFormat = DateFormat(mask),
       super(
@@ -35,7 +35,7 @@ class TimeCatScale<F> extends CatScale<F> {
         ticks: ticks,
         tickCount: tickCount,
         values: values,
-        isRouding: isRouding,
+        isRouding: isRouding ?? true,
       );
 
   final type = 'timeCat';
@@ -68,6 +68,9 @@ class TimeCatScale<F> extends CatScale<F> {
     }
   }
 
+  int _toTimeStamp(Object value) =>
+    (value is String) ? this._dateFormat.parse(value).millisecondsSinceEpoch : value;
+  
   List<F> calculateTicks() {
     final count = this.tickCount;
     var ticks;
@@ -87,7 +90,8 @@ class TimeCatScale<F> extends CatScale<F> {
 
   @override
   num translate(Object value) {
-    num index = this.values.indexOf(value);
+    int valueStamp = this._toTimeStamp(value);
+    num index = this.values.map(_toTimeStamp).toList().indexOf(valueStamp);
 
     if (index == -1) {
       if (value is num && value < this.values.length) {
@@ -127,12 +131,17 @@ class TimeCatScale<F> extends CatScale<F> {
       result = value;
     }
 
-    String resultStr = '';
     final formatter = this.formatter;
     if (formatter != null) {
-      resultStr = formatter(result);
+      return formatter(result);
     }
-    return resultStr;
+    if (result is int) {
+      return this._dateFormat.format(DateTime.fromMillisecondsSinceEpoch(result));
+    }
+    if (result is String) {
+      return result;
+    }
+    return '';
   }
 
   @override
@@ -150,6 +159,70 @@ class TimeCatScale<F> extends CatScale<F> {
     return rst;
   }
 
-  int _toTimeStamp(Object value) =>
-    (value is String) ? this._dateFormat.parse(value).millisecondsSinceEpoch : value;
+  @override
+  CatScale<F> clone() => TimeCatScale(
+    fieldList: this.fields,
+    formatter: this.formatter,
+    range: this.range,
+    alias: this.alias,
+    ticks: this.ticks,
+    tickCount: this.tickCount,
+    values: this.values,
+    isRouding: this.isRouding,
+    sortable:  this.sortable,
+    nice: this.nice,
+    min: this.min,
+    max: this.max,
+    tickInterval: this.tickInterval,
+    mask: this.mask,
+  );
+  
+  @override
+  void changeFields(Map<String, Object> info) {
+    if (info.containsKey('field')) {
+      this.field = info['field'];
+    }
+    if (info.containsKey('fieldList')) {
+      this.fieldList = info['fieldList'];
+    }
+    if (info.containsKey('formatter')) {
+      this.formatter = info['formatter'];
+    }
+    if (info.containsKey('range')) {
+      this.range = info['range'];
+    }
+    if (info.containsKey('alias')) {
+      this.alias = info['alias'];
+    }
+    if (info.containsKey('ticks')) {
+      this.ticks = info['ticks'];
+    }
+    if (info.containsKey('tickCount')) {
+      this.tickCount = info['tickCount'];
+    }
+    if (info.containsKey('values')) {
+      this.values = info['values'];
+    }
+    if (info.containsKey('isRouding')) {
+      this.isRouding = info['isRouding'];
+    }
+    if (info.containsKey('sortable')) {
+      this.sortable = info['sortable'];
+    }
+    if (info.containsKey('nice')) {
+      this.nice = info['nice'];
+    }
+    if (info.containsKey('min')) {
+      this.min = info['min'];
+    }
+    if (info.containsKey('max')) {
+      this.max = info['max'];
+    }
+    if (info.containsKey('tickInterval')) {
+      this.tickInterval = info['tickInterval'];
+    }
+    if (info.containsKey('mask')) {
+      this.mask = info['mask'];
+    }
+  }
 }

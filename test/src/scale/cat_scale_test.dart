@@ -71,8 +71,9 @@ main() {
     });
 
     test('change', () {
-      scale.values = [ '一', '二', '三', '四', '五', '六' ];
-      scale.change();
+      scale.change({
+        'values': [ '一', '二', '三', '四', '五', '六' ],
+      });
       expect(scale.invert(0), '一');
       expect(scale.invert(0.4), '三');
       expect(scale.invert(1), '六');

@@ -77,10 +77,11 @@ abstract class Scale<F> extends FieldAttachable {
 
   Scale<F> clone();
 
-  /// In dart explicitly set class fields
-  ///   before using change() method
-  Scale<F> change() {
+  void changeFields(Map<String, Object> info);
+
+  Scale<F> change(Map<String, Object> info) {
     this.ticks = null;
+    this.changeFields(info);
     this.init();
     return this;
   }

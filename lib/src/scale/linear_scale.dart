@@ -160,4 +160,41 @@ class LinearScale extends Scale<num> {
     max: this.max,
     tickInterval: this.tickInterval,
   );
+
+  @override
+  void changeFields(Map<String, Object> info) {
+    if (info.containsKey('field')) {
+      this.field = info['field'];
+    }
+    if (info.containsKey('fieldList')) {
+      this.fieldList = info['fieldList'];
+    }
+    if (info.containsKey('formatter')) {
+      this.formatter = info['formatter'];
+    }
+    if (info.containsKey('range')) {
+      this.range = info['range'];
+    }
+    if (info.containsKey('alias')) {
+      this.alias = info['alias'];
+    }
+    if (info.containsKey('ticks')) {
+      this.ticks = info['ticks'];
+    }
+    if (info.containsKey('tickCount')) {
+      this.tickCount = info['tickCount'];
+    }
+    if (info.containsKey('nice')) {
+      this.nice = info['nice'];
+    }
+    if (info.containsKey('min')) {
+      this.min = info['min'];
+    }
+    if (info.containsKey('max')) {
+      this.max = info['max'];
+    }
+    if (info.containsKey('tickInterval')) {
+      this.tickInterval = info['tickInterval'];
+    }
+  }
 }
