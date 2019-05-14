@@ -722,7 +722,7 @@ default: 1.0
 
 type: String | List<String>
 
-**valueList | value | valueFunc**
+**valueList | value | callback**
 
 type: List<V> | V | (datum) => V
 

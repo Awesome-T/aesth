@@ -1,3 +1,4 @@
+import 'package:aesth/src/scale/scale.dart';
 import 'package:aesth/src/util/measures.dart';
 
 import 'attr.dart';
@@ -7,7 +8,8 @@ class SizeAttr<F> extends Attr<F, num> {
     String field,
     List<num> valueList,
     num value,
-    AttrValueGenerator<F, num> valueFunc,
+    AttrCallback<F, num> callback,
+    List<Scale<F>> scales,
 
     this.range,
   }) : super(
@@ -15,7 +17,8 @@ class SizeAttr<F> extends Attr<F, num> {
     fieldList: null,
     valueList: valueList,
     value: value,
-    valueFunc: valueFunc,
+    callback: callback,
+    scales: scales,
   );
 
   final Range range;

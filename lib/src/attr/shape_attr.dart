@@ -1,3 +1,5 @@
+import 'package:aesth/src/scale/scale.dart';
+
 import 'attr.dart';
 
 enum ShapeMode {
@@ -13,12 +15,14 @@ class ShapeAttr<F> extends Attr<F, ShapeMode> {
     List<String> fieldList,
     List<ShapeMode> valueList,
     ShapeMode value,
-    AttrValueGenerator<F, ShapeMode> valueFunc,
+    AttrCallback<F, ShapeMode> callback,
+    List<Scale<F>> scales,
   }) : super(
     field: field,
     fieldList: fieldList,
     valueList: valueList,
     value: value,
-    valueFunc: valueFunc,
+    callback: callback,
+    scales: scales,
   );
 }

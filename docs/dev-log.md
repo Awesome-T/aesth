@@ -214,6 +214,18 @@ change为满足重载要求，传参采用Map<String, Object>
 
 
 
+**attr**
+
+valueFunc改名为callback
+
+内部保留values，对外叫valueList
+
+所有bool初始不能为null，防止错误
+
+linear 不通过构造函数设置
+
+
+
 
 
 TODO

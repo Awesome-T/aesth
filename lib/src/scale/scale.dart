@@ -30,6 +30,8 @@ abstract class Scale<F> extends FieldAttachable {
 
   final type = 'base';
 
+  final bool isCategory = false;
+
   ScaleFormatter<F> formatter;
 
   Range range;

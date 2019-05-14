@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:aesth/src/scale/scale.dart';
+
 import 'attr.dart';
 
 class ColorAttr<F> extends Attr<F, Color> {
@@ -8,7 +10,8 @@ class ColorAttr<F> extends Attr<F, Color> {
     List<String> fieldList,
     List<Color> valueList,
     Color value,
-    AttrValueGenerator<F, Color> valueFunc,
+    AttrCallback<F, Color> callback,
+    List<Scale<F>> scales,
 
     this.gradient,
   }) : super(
@@ -16,7 +19,8 @@ class ColorAttr<F> extends Attr<F, Color> {
     fieldList: fieldList,
     valueList: valueList,
     value: value,
-    valueFunc: valueFunc,
+    callback: callback,
+    scales: scales,
   );
 
   final Gradient gradient;
