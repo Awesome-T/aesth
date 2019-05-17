@@ -6,7 +6,6 @@ import './auto/cat.dart' show catAuto;
 class CatScale<F> extends Scale<F> {
   CatScale({
     String field,
-    List<String> fieldList,
     ScaleFormatter formatter,
     Range range,
     String alias,
@@ -17,7 +16,6 @@ class CatScale<F> extends Scale<F> {
     this.isRouding = true,
   }) : super(
     field: field,
-    fieldList: fieldList,
     formatter: formatter,
     range: range ?? Range(0, 1),
     alias: alias,
@@ -112,7 +110,7 @@ class CatScale<F> extends Scale<F> {
 
   @override
   CatScale<F> clone() => CatScale(
-    fieldList: this.fields,
+    field: this.field,
     formatter: this.formatter,
     range: this.range,
     alias: this.alias,
@@ -127,8 +125,8 @@ class CatScale<F> extends Scale<F> {
     if (info.containsKey('field')) {
       this.field = info['field'];
     }
-    if (info.containsKey('fieldList')) {
-      this.fieldList = info['fieldList'];
+    if (info.containsKey('field')) {
+      this.field = info['field'];
     }
     if (info.containsKey('formatter')) {
       this.formatter = info['formatter'];

@@ -9,18 +9,18 @@ enum ShapeMode {
   hollowCircle,
 }
 
-class ShapeAttr<F> extends Attr<F, ShapeMode> {
+class ShapeAttr extends Attr<ShapeMode> {
   ShapeAttr({
     String field,
     List<String> fieldList,
-    List<ShapeMode> valueList,
+    List<ShapeMode> values,
     ShapeMode value,
-    AttrCallback<F, ShapeMode> callback,
-    List<Scale<F>> scales,
+    AttrCallback callback,
+    List<Scale> scales,
   }) : super(
     field: field,
     fieldList: fieldList,
-    valueList: valueList,
+    values: values,
     value: value,
     callback: callback,
     scales: scales,

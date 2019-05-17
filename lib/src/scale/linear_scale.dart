@@ -6,7 +6,6 @@ import './auto/number.dart' show numberAuto;
 class LinearScale extends Scale<num> {
   LinearScale({
     String field,
-    List<String> fieldList,
     ScaleFormatter formatter,
     Range range,
     String alias,
@@ -19,7 +18,6 @@ class LinearScale extends Scale<num> {
     this.tickInterval,
   }) : super(
     field: field,
-    fieldList: fieldList,
     formatter: formatter,
     range: range ?? Range(0, 1),
     alias: alias,
@@ -140,7 +138,7 @@ class LinearScale extends Scale<num> {
 
   @override
   double invert(Object value) {
-    if (value is double) {
+    if (value is num) {
       final percent = (value - this.rangeMin()) / (this.rangeMax() - this.rangeMin());
       return this.min + percent * (this.max - this.min);
     }
@@ -149,7 +147,7 @@ class LinearScale extends Scale<num> {
 
   @override
   Scale<num> clone() => LinearScale(
-    fieldList: this.fields,
+    field: this.field,
     formatter: this.formatter,
     range: this.range,
     alias: this.alias,
@@ -166,8 +164,8 @@ class LinearScale extends Scale<num> {
     if (info.containsKey('field')) {
       this.field = info['field'];
     }
-    if (info.containsKey('fieldList')) {
-      this.fieldList = info['fieldList'];
+    if (info.containsKey('field')) {
+      this.field = info['field'];
     }
     if (info.containsKey('formatter')) {
       this.formatter = info['formatter'];

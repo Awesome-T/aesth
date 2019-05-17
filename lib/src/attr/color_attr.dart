@@ -4,24 +4,23 @@ import 'package:aesth/src/scale/scale.dart';
 
 import 'attr.dart';
 
-class ColorAttr<F> extends Attr<F, Color> {
+class ColorAttr extends Attr<Color> {
   ColorAttr({
     String field,
     List<String> fieldList,
-    List<Color> valueList,
+    List<Color> values,
     Color value,
-    AttrCallback<F, Color> callback,
-    List<Scale<F>> scales,
+    AttrCallback callback,
+    List<Scale> scales,
 
-    this.gradient,
+    Gradient gradient,
   }) : super(
     field: field,
     fieldList: fieldList,
-    valueList: valueList,
+    values: values,
     value: value,
     callback: callback,
     scales: scales,
+    gradient: gradient,
   );
-
-  final Gradient gradient;
 }

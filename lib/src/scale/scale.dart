@@ -11,26 +11,25 @@ class TickObj<F> {
   final double value;
 }
 
-abstract class Scale<F> extends FieldAttachable {
+abstract class Scale<F> {
   Scale({
-    String field,
-    List<String> fieldList,
-
+    this.field,
     this.formatter,
     this.range = const Range(0, 1),
     this.alias,
     this.ticks,
     this.tickCount,
-  }) : super(
-    field: field,
-    fieldList: fieldList,
-  ) {
+  }) {
     this.init();
   }
 
   final type = 'base';
 
   final bool isCategory = false;
+
+  final bool isLinear = false;
+
+  String field;
 
   ScaleFormatter<F> formatter;
 

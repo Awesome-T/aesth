@@ -9,7 +9,6 @@ import './auto/cat.dart' show catAuto;
 class TimeCatScale<F> extends CatScale<F> {
   TimeCatScale({
     String field,
-    List<String> fieldList,
     ScaleFormatter formatter,
     Range range,
     String alias,
@@ -28,7 +27,6 @@ class TimeCatScale<F> extends CatScale<F> {
     : _dateFormat = DateFormat(mask),
       super(
         field: field,
-        fieldList: fieldList,
         formatter: formatter,
         range: range,
         alias: alias,
@@ -161,7 +159,7 @@ class TimeCatScale<F> extends CatScale<F> {
 
   @override
   CatScale<F> clone() => TimeCatScale(
-    fieldList: this.fields,
+    field: this.field,
     formatter: this.formatter,
     range: this.range,
     alias: this.alias,
@@ -182,8 +180,8 @@ class TimeCatScale<F> extends CatScale<F> {
     if (info.containsKey('field')) {
       this.field = info['field'];
     }
-    if (info.containsKey('fieldList')) {
-      this.fieldList = info['fieldList'];
+    if (info.containsKey('field')) {
+      this.field = info['field'];
     }
     if (info.containsKey('formatter')) {
       this.formatter = info['formatter'];

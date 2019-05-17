@@ -192,7 +192,7 @@ bbox使用自己写的贝塞尔函数，smooth中直接用Path类中的方法
 
 凡是f2用了util.each的，要用?.处理null情况
 
-
+field只有一个
 
 cat类型原则上都是String，timeCat是特殊的string，但为兼容timeCat直接传time的情况，他们的values和ticks都为泛型F
 
@@ -218,11 +218,17 @@ change为满足重载要求，传参采用Map<String, Object>
 
 valueFunc改名为callback
 
-内部保留values，对外叫valueList
+属性叫values
+
+一个attr对应多个field（存在fields中），因此可能存在多个F，不好统一，它的scales中的F也可能各不一样
+
+对于对应单独scale的方法，还是可以定义方法自己的F的
 
 所有bool初始不能为null，防止错误
 
 linear 不通过构造函数设置
+
+当不设置callback时，默认的callback只接受params[0]，callback既可以返回value，也可以返回values数组
 
 
 
