@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import 'dart:ui';
 
 import 'package:aesth/src/base.dart';
 import 'package:aesth/src/scale/scale.dart';
@@ -13,20 +12,24 @@ Object _toScaleString<F>(Scale<F> scale, F value) {
 
 typedef AttrCallback = Object Function(List<Object> params);
 
+typedef AttrGradient<V> = V Function(num percent);
+
 abstract class Attr<V> extends FieldAttachable {
   Attr({
     String field,
     List<String> fieldList,
 
     this.values,
-    this.value,
+    V value,
     AttrCallback callback,
     this.scales,
     this.gradient,
+    this.linear = false,
   }) : super(
     field: field,
     fieldList: fieldList,
   ) {
+    this.values ??= [value];
     var mixedCallback;
     final defaultCallback = this._defaultCallback;
 
@@ -41,26 +44,24 @@ abstract class Attr<V> extends FieldAttachable {
       };
     }
 
-    if (mixedCallback != null) {
-      this.callback = mixedCallback;
-    }
+    this.callback = (mixedCallback != null) ? mixedCallback : this._defaultCallback;
   }
 
   final type = 'base';
 
   final names = <String>[];
 
-  V value;
+  set value(V value) => values ??= [value];
 
   List<V> values;
 
   List<Scale> scales;
 
-  bool linear = false;
+  bool linear;
 
   AttrCallback callback;
 
-  Gradient gradient;
+  AttrGradient<V> gradient;
 
   V _getAttrValue<F>(Scale<F> scale, F value) {
     final values = this.values;
@@ -69,10 +70,10 @@ abstract class Attr<V> extends FieldAttachable {
       return values[index % values.length];
     }
     final percent = scale.scale(value);
-    return this.getLinearValue(percent) as V;
+    return this.getLinearValue(percent);
   }
 
-  num getLinearValue(num percent) {
+  V getLinearValue(num percent) {
     final values = this.values;
     final steps = values.length -1;
     final step = (steps * percent).floor();
@@ -80,18 +81,18 @@ abstract class Attr<V> extends FieldAttachable {
     final start = values[step] as num;
     final end = (step == steps) ? start : (values[step + 1] as num);
     final rstValue = start + (end - start) * leftPercent;
-    return rstValue;
+    return rstValue as V;
   }
 
-  V _defaultCallback<F>(F value) {
+  V _defaultCallback<F>(List<F> params) {
     final scale = this.scales[0];
-    final rstValue = this._getAttrValue(scale, value);
+    final rstValue = this._getAttrValue(scale, params[0]);
     return rstValue;
   }
 
   List<String> getNames() {
-    final scales = this.scales;
-    final names = this.names;
+    final scales = this.scales ?? [];
+    final names = this.names ?? [];
     final length = math.min(scales.length, names.length);
     final rst = <String>[];
     for (var i = 0; i < length; i++) {
@@ -119,21 +120,21 @@ abstract class Attr<V> extends FieldAttachable {
   List<V> mapping(List<Object> params) {
     final scales = this.scales;
     final callback = this.callback;
-    final originParam = [];
     if (callback != null) {
+      final originParams = [];
       for (var i = 0, len = params.length; i < len; i++) {
-        originParam[i] = this._toOriginParam(params[i], scales[i]);
+        originParams.add(this._toOriginParam(params[i], scales[i]));
       }
-      final values = this.callback(params);
+      final values = this.callback(originParams);
       return values is List ? values : [values];
     } else {
-      return params;
+      return List<V>.from(params);
     }
   }
 
-  List _toOriginParam<F>(Object param, Scale<F> scale) {
-    var rst;
+  Object _toOriginParam<F>(Object param, Scale<F> scale) {
     if (!scale.isLinear) {
+      var rst;
       if (param is List<F>) {
         rst = [];
         for (var i = 0, len = param.length; i < len; i++) {
@@ -142,7 +143,8 @@ abstract class Attr<V> extends FieldAttachable {
       } else {
         rst = _toScaleString(scale, param);
       }
+      return rst;
     }
-    return rst;
+    return param;
   }
 }

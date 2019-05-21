@@ -230,7 +230,11 @@ linear 不通过构造函数设置
 
 当不设置callback时，默认的callback只接受params[0]，callback既可以返回value，也可以返回values数组
 
+当没有设置values时，设为[value]
 
+color values是离散的，如线性的设置linear为true，如需复杂的渐变规则从gradient传入
+
+color values不能为string，linear需手动设置
 
 
 
