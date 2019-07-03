@@ -455,4 +455,6 @@ class Vector2 implements Vector {
     this[0] = m[0] * x + m[2] * y + m[4];
     this[1] = m[1] * x + m[3] * y + m[5];
   }
+
+  bool zero() => this.x == 0 && this.y == 0;
 }
