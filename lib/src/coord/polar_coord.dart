@@ -11,11 +11,11 @@ class PolarCoord extends Coord {
     Plot plot,
     Point start,
     Point end,
-    bool transposed,
+    bool transposed = false,
 
     this.radius,
     this.innerRadius = 0,
-    this.startAngle = pi / 2,
+    this.startAngle = -pi / 2,
     this.endAngle = pi * 3 / 2,
   }) : super(
     plot: plot,
@@ -44,7 +44,7 @@ class PolarCoord extends Coord {
 
   @override
   void init(Point<num> start, Point<num> end) {
-    final inner = this.inner ?? this.innerRadius;
+    final inner = (this.inner == 0 || this.inner == null) ? this.innerRadius : this.inner;
     final width = (end.x - start.x).abs();
     final height = (end.y - start.y).abs();
 
@@ -65,7 +65,7 @@ class PolarCoord extends Coord {
     }
 
     final radius = this.radius;
-    if (radius > 0 && radius <= 1) {
+    if (radius != null && radius > 0 && radius <= 1) {
       maxRadius = maxRadius * radius;
     }
 
@@ -121,8 +121,8 @@ class PolarCoord extends Coord {
       return Point(0, 0);
     }
 
-    var theta = startV.angleToSigned(pointV); // !!!
-    if ((theta - pi * 2) < 0.001) {
+    var theta = startV.angleTo(pointV, x.end < x.start);
+    if ((theta - pi * 2).abs() < 0.001) {
       theta = 0;
     }
     final l = pointV.length;

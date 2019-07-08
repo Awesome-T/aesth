@@ -166,7 +166,7 @@ BBox bbox
 
 Vector2采用完全拷贝的形式，否则难以处理运算符的返回值类型
 
-角度注意用angleToSigned
+按照f2重写direction, angle和angleTo
 
 
 

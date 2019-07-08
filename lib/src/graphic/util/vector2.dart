@@ -199,31 +199,6 @@ class Vector2 implements Vector {
     return dx * dx + dy * dy;
   }
 
-  /// Returns the angle between [this] vector and [other] in radians.
-  double angleTo(Vector2 other) {
-    final Float64List otherStorage = other._v2storage;
-    if (_v2storage[0] == otherStorage[0] && _v2storage[1] == otherStorage[1]) {
-      return 0.0;
-    }
-
-    final double d = dot(other) / (length * other.length);
-
-    return math.acos(d.clamp(-1.0, 1.0));
-  }
-
-  /// Returns the signed angle between [this] and [other] in radians.
-  double angleToSigned(Vector2 other) {
-    final Float64List otherStorage = other._v2storage;
-    if (_v2storage[0] == otherStorage[0] && _v2storage[1] == otherStorage[1]) {
-      return 0.0;
-    }
-
-    final double s = cross(other);
-    final double c = dot(other);
-
-    return math.atan2(s, c);
-  }
-
   /// Inner product.
   double dot(Vector2 other) {
     final Float64List otherStorage = other._v2storage;
@@ -446,15 +421,43 @@ class Vector2 implements Vector {
   // expended methods
   factory Vector2.fromPoint(math.Point point) => Vector2.zero()..setValues(point.x, point.y);
 
-  math.Point toPoint() => math.Point(x, y);
+  math.Point toPoint() => math.Point(_v2storage[0], _v2storage[1]);
 
   void transformMat2d(Matrix m) {
 
-    final x = this[0];
-    final y = this[1];
-    this[0] = m[0] * x + m[2] * y + m[4];
-    this[1] = m[1] * x + m[3] * y + m[5];
+    final x = _v2storage[0];
+    final y = _v2storage[1];
+    _v2storage[0] = m[0] * x + m[2] * y + m[4];
+    _v2storage[1] = m[1] * x + m[3] * y + m[5];
   }
 
-  bool zero() => this.x == 0 && this.y == 0;
+  bool zero() => _v2storage[0] == 0 && _v2storage[1] == 0;
+
+  // double direction(Vector2 v1, Vector2 v2) => v1[0] * v2[1] - v2[0] * v1[1];
+  double direction(Vector2 other) {
+    final Float64List otherStorage = other._v2storage;
+    return _v2storage[0] * otherStorage[1] - otherStorage[0] * _v2storage[1];
+  }
+
+  double angle(Vector2 other) {
+    final theta = this.dot(other) / (this.length * other.length);
+    return math.acos(theta);
+  }
+
+  double angleTo(Vector2 other, [bool direction = false]) {
+    final angle = this.angle(other);
+    final angleLargeThanPI = this.direction(other) >= 0;
+    if (direction) {
+      if (angleLargeThanPI) {
+        return math.pi * 2 -angle;
+      }
+
+      return angle;
+    }
+
+    if (angleLargeThanPI) {
+      return angle;
+    }
+    return math.pi * 2 - angle;
+  }
 }
