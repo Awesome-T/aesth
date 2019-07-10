@@ -179,7 +179,7 @@ class Matrix extends Vector {
 
   void rotate(double radian) {
     final c = math.cos(radian);
-    final s = math.cos(radian);
+    final s = math.sin(radian);
     final m = _matstorage;
     final m11 = m[0] * c + m[2] * s;
     final m12 = m[1] * c + m[3] * s;

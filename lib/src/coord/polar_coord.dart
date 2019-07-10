@@ -54,7 +54,7 @@ class PolarCoord extends Coord {
       maxRadius = min(width / 2, height);
       center = Point(
         (start.x + end.x) / 2,
-        start.y,
+        start.y.toDouble(),  // ensure double for Vector2
       );
     } else {
       maxRadius = min(width, height) / 2;
