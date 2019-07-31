@@ -1,6 +1,6 @@
 name: aesth
-description: A new Flutter package project.
-version: 0.0.1
+description: Charting and data visualization library with the Grammar of Graphics.
+version: 0.0.2
 author: LIN Chen <entronad@gmail.com>
 homepage: https://github.com/entronad/aesth
 
@@ -11,7 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.15.7
-  logging: ^0.11.3+2
   vector_math: ^2.0.8
 
 dev_dependencies:

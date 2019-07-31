@@ -73,7 +73,7 @@ class TimeCatScale<F> extends CatScale<F> {
     final count = this.tickCount;
     var ticks;
     if (count != null) {
-      final temp = catAuto(
+      final temp = catAuto<F>(
         maxCount: count,
         data: this.values,
         isRounding: this.isRouding,

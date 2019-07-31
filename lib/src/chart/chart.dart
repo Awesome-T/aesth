@@ -1,23 +1,8 @@
-import '../common/common.dart' as common
-    show
-        BaseChart,
-        LayoutConfig,
-        MarginSpec,
-        Performance,
-        RTLSpec,
-        Series,
-        SeriesRendererConfig,
-        SelectionModelType,
-        SelectionTrigger;
-import '../behaviors/select_nearest.dart' show SelectNearest;
-import 'package:meta/meta.dart' show immutable, required;
-import '../behaviors/chart_behavior.dart'
-    show ChartBehavior, ChartStateBehavior, GestureType;
-import 'selection_model_config.dart' show SelectionModelConfig;
-import 'package:flutter/material.dart' show StatefulWidget;
-import 'package:flutter/painting.dart' show EdgeInsets;
-import 'base_chart_state.dart' show BaseChartState;
-import 'user_managed_state.dart' show UserManagedState;
+import 'package:flutter/widgets.dart'
+  show
+    EdgeInsets,
+    State,
+    StatefulWidget;
 
 import 'package:aesth/src/scale/scale.dart' show Scale;
 import 'package:aesth/src/coord/coord.dart' show Coord;
@@ -71,5 +56,5 @@ class Chart<D> extends StatefulWidget {
   final List<Guide> guides;
 
   @override
-  BaseChartState createState() => BaseChartState();
+  State createState() => null;
 }

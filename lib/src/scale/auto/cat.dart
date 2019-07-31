@@ -35,7 +35,7 @@ class CatAutoRst {
   final List ticks;
 }
 
-CatAutoRst catAuto<F>({bool isRounding = false, List<F> data, int maxCount = _maxCount}) {
+CatAutoRst catAuto<F>({bool isRounding = false, List data, int maxCount = _maxCount}) {
   var ticks = <F>[];
   final categories = _getSimpleArray(data);
   final length = categories.length;
