@@ -246,3 +246,10 @@ typedef统一添加
 
 所有num, int, double的细化
 
+
+
+
+
+## graphic
+
+element中所有\_attrs变成类成员，\_attrs.attrs 变为Paint 对象
