@@ -117,7 +117,7 @@ abstract class Attr<V> extends FieldAttachable {
     return scales[index];
   }
 
-  List<V> mapping(List<Object> params) {
+  List mapping(List params) {
     final scales = this.scales;
     final callback = this.callback;
     if (callback != null) {

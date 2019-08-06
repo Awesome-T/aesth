@@ -11,7 +11,7 @@ class MyCoord extends Coord {
 
   Point convertPoint(Point point) => Point(
     point.x * 100,
-    point.y * 100,
+    point.y * 200,
   );
 
   Point invertPoint(Point point) => null;
@@ -21,7 +21,7 @@ main() {
   group('attr test size', () {
     final scaleCat = CatScale(
       field: 'type',
-      values: [ 'a', 'b', 'c', 'd' ],
+      values: [ 'a', 'b', 'c', 'd', 'e' ],
     );
 
     final scaleLinear = LinearScale(

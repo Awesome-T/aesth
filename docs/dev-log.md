@@ -238,6 +238,14 @@ color values不能为string，linear需手动设置
 
 
 
+mapping 函数仅有posion中有，
+
+attr中的mapping，传入传出都是List<Object>,仅做抽象处理
+
+postion的mapping，传出限制也为List<Object>, 目前其规则是数组的那个都有，不是数组的那个，如果都不一样是数组，只要出现一样的就不是数组
+
+
+
 TODO
 
 typedef统一添加

@@ -31,9 +31,9 @@ class PositionAttr extends Attr<num> {
   Coord coord;
 
   @override
-  List<num> mapping(List<Object> params) {
+  List mapping(List params) {
     if (params?.length < 2) {
-      return <num>[];
+      return [];
     }
     var x = params[0];
     var y = params[1];
@@ -52,8 +52,8 @@ class PositionAttr extends Attr<num> {
           scaleX.scale(x[i]),
           scaleY.scale(y[j]),
         ));
-        rstX.push(obj.x);
-        rstY.push(obj.y);
+        rstX.add(obj.x);
+        rstY.add(obj.y);
       }
     } else if (y is List) {
       x = scaleX.scale(x);
@@ -68,17 +68,17 @@ class PositionAttr extends Attr<num> {
           if (!(rstX is List)) {
             rstX = [rstX];
           }
-          rstX.push(obj.x);
+          rstX.add(obj.x);
         } else {
           rstX = obj.x;
         }
-        rstY.push(obj.y);
+        rstY.add(obj.y);
       });
     } else if (x is List) {
       y = scaleY.scale(y);
       rstX = [];
       x.forEach((xVal) {
-        xVal = scaleY.scale(xVal);
+        xVal = scaleX.scale(xVal);
         obj = coord.convertPoint(Point(
           xVal,
           y,
@@ -87,11 +87,11 @@ class PositionAttr extends Attr<num> {
           if (!(rstY is List)) {
             rstY = [rstY];
           }
-          rstY.push(obj.y);
+          rstY.add(obj.y);
         } else {
           rstY = obj.y;
         }
-        rstX.push(obj.x);
+        rstX.add(obj.x);
       });
     } else {
       x = scaleX.scale(x);
