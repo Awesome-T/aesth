@@ -1,4 +1,4 @@
-import 'dart:ui' show Canvas;
+import 'dart:ui' show Canvas, Paint;
 
 import './util/bbox.dart' show BBox;
 import './util/matrix.dart' show Matrix, TransAction;
@@ -8,11 +8,30 @@ bool isUnchanged(Matrix m) =>
   m[0] == 1 && m[1] == 0 && m[2] == 0 && m[3] == 1 && m[4] == 0 && m[5] == 0;
 
 abstract class Element {
+  Element({
+    this.paint,
+    this.width,
+    this.height,
+    this.zIndex,
+    this.visible,
+    this.destroyed,
+    this.parent,
+    this.children,
+    this.bbox,
+    this.matrix,
+    this.x,
+    this.y,
+  });
+
+  final isGroup = false;
+  final isShape = false;
+
+  Paint paint;
+  num width;
+  num height;
   int zIndex = 0;
   bool visible = true;
   bool destroyed = false;
-  bool isGroup;
-  bool isShape;
   Element parent;
   List<Element> children;
   BBox bbox = BBox(0, 0, 0, 0);
@@ -25,11 +44,11 @@ abstract class Element {
       return;
     }
     if (this.visible) {
-      
+      this.drawInner(canvas);
     }
   }
 
-  void drawInner();
+  void drawInner(Canvas canvas);
 
   Element show() {
     this.visible = true;
