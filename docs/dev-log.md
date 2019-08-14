@@ -252,10 +252,38 @@ element中所有\_attrs变成类成员，\_attrs.attrs 变为Paint 对象
 
 感觉f2中的clip是一个element对象，回头再说
 
+
+
 在flutter中，canvas和paint是分离的，不能像js一样直接从context获取所有信息
 
 包装一个Context类，继承自canvas，基本起到持有paint的功能，不求全部和js canvas一样
 
-其中Paint的Paintstyle是不算在状态里面的，每次绘制前设置一下
+设置一个新类dulPaint分别持有stroke和fill的样式
 
 路径编辑用一个内部的path变量进行编辑
+
+js的局限性：不能画椭圆oval
+
+arc不会重置笔触，rect会重置到原点
+
+Path2D就用Path，给stroke和fill添加上对应的可选参数
+
+没有globalAlpha属性
+
+不能画虚线
+
+渐变通过shader属性来确定，需要gradient.createShader(rect)
+
+shader会覆盖color
+
+这里简化一下，fillStyle和strokeStyle传入shader或者Color, shader 包含了gradient和pattern两种情况
+
+阴影好像比较麻烦,先不弄阴影
+
+
+
+简化版，只起到保留状态，restore、save的作用，它们保存在栈中，getter是获取栈顶的状态
+
+哪些作为状态：paint, style, 
+
+只保留paint、textStyle,
