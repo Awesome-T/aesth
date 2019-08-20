@@ -287,3 +287,37 @@ shader会覆盖color
 哪些作为状态：paint, style, 
 
 只保留paint、textStyle,
+
+因为用类什么的完全无法模拟出save、restore，所以干脆不用了
+
+在f2中，只有Element.draw前后会用到save和restore，其目的是保证此次绘图不影响前后绘图
+
+在本项目中，改为contex中不保留有pait的栈每次绘图前reset context
+
+
+
+不需要context，只要canvas就行了，paint, textStyel，path等作为shape的属性
+
+clip本质上是一个shape
+
+没有globalAapha，自己通过颜色设置
+
+为简化代码，graphic中所有不是final，且不影响构造函数的字段，不再放到构造函数中
+
+xxContext都改为xxCanvas
+
+因为样式与canvas是独立的，不需要resectContext方法，
+
+不需要parseStyle去解析渐变，渐变通过paint的shader属性处理
+
+paint提到element类中，以实现hasFill 和hasStroke
+
+
+
+实际的drawInner方法好像很简单
+
+shape的bbox要用getBBox方法
+
+
+
+在f2的graphic中，canvas是htmlcanvas的替身，container纯粹为提供一些方法混入canvas中

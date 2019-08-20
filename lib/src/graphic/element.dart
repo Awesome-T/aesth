@@ -1,39 +1,30 @@
-import 'dart:ui' show Canvas, Paint;
+import 'dart:ui' show Canvas, Paint, PaintingStyle;
 
 import './util/bbox.dart' show BBox;
 import './util/matrix.dart' show Matrix, TransAction;
 import './util/vector2.dart' show Vector2;
+import './shape.dart' show Shape;
 
 bool isUnchanged(Matrix m) =>
   m[0] == 1 && m[1] == 0 && m[2] == 0 && m[3] == 1 && m[4] == 0 && m[5] == 0;
 
 abstract class Element {
-  Element({
-    this.paint,
-    this.width,
-    this.height,
-    this.zIndex,
-    this.visible,
-    this.destroyed,
-    this.parent,
-    this.children,
-    this.bbox,
-    this.matrix,
-    this.x,
-    this.y,
-  });
-
   final isGroup = false;
   final isShape = false;
 
-  Paint paint;
   num width;
   num height;
   int zIndex = 0;
+
   bool visible = true;
   bool destroyed = false;
+
   Element parent;
   List<Element> children;
+
+  Paint paint;
+
+  Shape clip;
   BBox bbox = BBox(0, 0, 0, 0);
   Matrix matrix = Matrix(1, 0, 0, 1, 0, 0);
   double x;
@@ -44,9 +35,25 @@ abstract class Element {
       return;
     }
     if (this.visible) {
+      this.setCanvas(canvas);
       this.drawInner(canvas);
+      canvas.restore();
     }
   }
+
+  setCanvas(Canvas canvas) {
+    canvas.save();
+    if (clip != null) {
+      clip.resetTransform(canvas);
+      clip.createPath();
+      canvas.clipPath(clip.path);
+    }
+    this.resetTransform(canvas);
+  }
+
+  bool hasFill() => this.paint.style == PaintingStyle.fill;
+
+  bool hasStroke() => this.paint.style == PaintingStyle.stroke;
 
   void drawInner(Canvas canvas);
 
@@ -123,5 +130,12 @@ abstract class Element {
     final m = this.matrix;
     v.transformMat2d(m);
     return this;
+  }
+
+  void resetTransform(Canvas canvas) {
+    final mo = this.matrix;
+    if (!isUnchanged(mo)) {
+      canvas.transform(mo.toCanvasMatrix());
+    }
   }
 }

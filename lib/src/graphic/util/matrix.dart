@@ -55,6 +55,10 @@ class Matrix extends Vector {
       : _matstorage = new Float64List.view(buffer, offset, 6);
 
   /// Set the values of the vector.
+  /// 
+  ///    m11  m21  dx
+  ///    m12  m22  dy
+  /// 
   void setValues(double m11_, double m12_, double m21_, double m22_, double dx_, double dy_) {
     _matstorage[0] = m11_;
     _matstorage[1] = m12_;
@@ -220,4 +224,27 @@ class Matrix extends Vector {
       }
     }
   }
+
+  ///    m11  m21  0  dx
+  ///    m12  m22  0  dy
+  ///    0    0    1  0
+  ///    0    0    0  1
+  Float64List toCanvasMatrix() => Float64List.fromList([
+    _matstorage[0],
+    _matstorage[1],
+    0,
+    0,
+    _matstorage[2],
+    _matstorage[3],
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    _matstorage[4],
+    _matstorage[5],
+    0,
+    1,
+  ]);
 }
