@@ -321,3 +321,11 @@ shape的bbox要用getBBox方法
 
 
 在f2的graphic中，canvas是htmlcanvas的替身，container纯粹为提供一些方法混入canvas中
+
+先不做自定义图形，不引入addShape方法，也不做addGroup方法，仅有add方法
+
+dart里的sort等于0时也顺序不一定，需要特殊处理，Element添加自动index方便排序
+
+add方法只允许传list
+
+Element中js的canvas、context到底需不需处理？

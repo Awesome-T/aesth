@@ -15,6 +15,8 @@ abstract class Element {
   num width;
   num height;
   int zIndex = 0;
+  // index as a child
+  int index;
 
   bool visible = true;
   bool destroyed = false;
