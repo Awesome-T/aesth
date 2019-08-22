@@ -7,7 +7,7 @@ Comparator<Element> getComparer(Comparator<Element> compare) =>
     return result == 0 ? left.index - right.index : result;
   };
 
-mixin Container on Group {
+mixin Container on Element {
   bool contain(Element item) {
     final children = this.children;
     return children.contains(item);
@@ -40,6 +40,14 @@ mixin Container on Group {
   }
 
   void _setEvn(Element item) {
+    //TODO
+    // atatch some attrs
 
+    if (item is Group) {
+      final children = item.children;
+      for (var child in children) {
+        item._setEvn(child);
+      }
+    }
   }
 }

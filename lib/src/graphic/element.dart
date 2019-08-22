@@ -29,8 +29,8 @@ abstract class Element {
   Shape clip;
   BBox bbox = BBox(0, 0, 0, 0);
   Matrix matrix = Matrix(1, 0, 0, 1, 0, 0);
-  double x;
-  double y;
+  num x = 0;
+  num y = 0;
 
   void draw(Canvas canvas) {
     if (this.destroyed) {
@@ -97,6 +97,8 @@ abstract class Element {
 
     this.destroyed = true;
   }
+
+  BBox getBBox();
 
   Element transform(List<TransAction> actions) {
     this.matrix.transform(actions);

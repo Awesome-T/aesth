@@ -102,7 +102,7 @@ class Matrix extends Vector {
   /// Returns a printable string
   @override
   String toString() => '${_matstorage[0]},${_matstorage[1]},'
-    '${_matstorage[2]},${_matstorage[3]}'
+    '${_matstorage[2]},${_matstorage[3]},'
     '${_matstorage[4]},${_matstorage[5]}';
 
   /// Check if two vectors are the same.

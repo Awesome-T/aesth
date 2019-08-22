@@ -1,4 +1,3 @@
-import 'package:aesth/src/base.dart';
 import 'package:aesth/src/util/measures.dart';
 
 typedef ScaleFormatter<F> = String Function(F value);

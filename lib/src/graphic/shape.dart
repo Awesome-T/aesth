@@ -15,6 +15,7 @@ abstract class Shape extends Element {
     canvas.drawPath(this.path, this.paint);
   }
 
+  @override
   BBox getBBox() {
     if (this.bbox == null) {
       this.bbox = this.calculateBox();
