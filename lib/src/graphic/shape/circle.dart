@@ -1,21 +1,33 @@
+import 'dart:ui' show Rect, Offset, Path;
+
 import 'package:aesth/src/graphic/util/bbox.dart';
 
 import '../shape.dart' show Shape;
 
 class Circle extends Shape {
+  Circle({
+    this.x,
+    this.y,
+    this.r,
+  });
+
   final type = 'circle';
 
+  num x = 0;
+  num y = 0;
   num r = 0;
 
   @override
   void createPath() {
-    // TODO: implement createPath
+    this.path = Path();
+    this.path.addOval(Rect.fromCircle(center: Offset(this.x, this.y), radius: this.r));
   }
 
   @override
-  BBox calculateBox() {
-    // TODO: implement calculateBox
-    return null;
-  }
-  
+  BBox calculateBox() => BBox(
+    this.x - this.r,
+    this.x + this.r,
+    this.y - this.r,
+    this.y + this.r,
+  );
 }

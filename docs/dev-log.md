@@ -340,4 +340,10 @@ js中的三角函数算的略微不准，pi/4的两个值不相等
 
 
 
-各种shapes中，有的有x，y，有的没有，只有那种
+f2 中 element的用于moveTo的x,y是\_attrs.x，而各种shapes中x，y是\_attrs.attrs.x，element中的改名为originX, originY
+
+
+
+path不统一初始化，在遇到ctx.beginPath的时候初始化
+
+custom先不做，可以通过继承shape的方式自定义

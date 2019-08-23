@@ -29,8 +29,8 @@ abstract class Element {
   Shape clip;
   BBox bbox = BBox(0, 0, 0, 0);
   Matrix matrix = Matrix(1, 0, 0, 1, 0, 0);
-  num x = 0;
-  num y = 0;
+  num originX = 0;
+  num originY = 0;
 
   void draw(Canvas canvas) {
     if (this.destroyed) {
@@ -123,11 +123,11 @@ abstract class Element {
   }
 
   void moveTo(x, y) {
-    final cx = this.x ?? 0;
-    final cy = this.y ?? 0;
+    final cx = this.originX ?? 0;
+    final cy = this.originY ?? 0;
     this.translate(x - cx, y - cy);
-    this.x = x;
-    this.y = y;
+    this.originX = x;
+    this.originY = y;
   }
 
   Element apply(Vector2 v) {
