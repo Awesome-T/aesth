@@ -1,7 +1,6 @@
 import 'dart:ui' show Path;
 
-import 'package:aesth/src/graphic/util/bbox.dart';
-
+import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Line extends Shape {

@@ -347,3 +347,11 @@ f2 中 element的用于moveTo的x,y是\_attrs.x，而各种shapes中x，y是\_at
 path不统一初始化，在遇到ctx.beginPath的时候初始化
 
 custom先不做，可以通过继承shape的方式自定义
+
+
+
+sector绘制时，先不单独处理r0=0的情况
+
+
+
+text的span完全可设置

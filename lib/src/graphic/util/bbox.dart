@@ -160,13 +160,13 @@ class BBox {
     );
   }
 
-  factory BBox.getBBoxFromBezierGroup(List<SmoothPath> points, [num lineWidth = 0]) {
+  factory BBox.fromBezierGroup(List<SmoothPath> paths, [num lineWidth = 0]) {
     var minX = double.infinity;
     var maxX = double.negativeInfinity;
     var minY = double.infinity;
     var maxY = double.negativeInfinity;
-    for (final point in points) {
-      final bbox = _cubicBezierBounds(point);
+    for (final path in paths) {
+      final bbox = _cubicBezierBounds(path);
       if (bbox.minX < minX) {
         minX = bbox.minX;
       }

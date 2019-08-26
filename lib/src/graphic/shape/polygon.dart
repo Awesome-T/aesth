@@ -1,8 +1,7 @@
 import 'dart:ui' show Path;
 import 'dart:math' show Point;
 
-import 'package:aesth/src/graphic/util/bbox.dart';
-
+import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Polygon extends Shape {
