@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:aesth/src/util/common.dart' show parseQuartet;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Rect extends Shape {
@@ -40,7 +39,4 @@ class Rect extends Shape {
       ));
     }
   }
-
-  @override
-  BBox calculateBox() => BBox(this.x, this.y, this.x + this.width, this.y + this.height);
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:math';
+import 'dart:ui' show Offset;
 
 import 'package:aesth/src/attr/position_attr.dart' show PositionAttr;
 import 'package:aesth/src/scale/cat_scale.dart' show CatScale;
@@ -7,14 +7,14 @@ import 'package:aesth/src/scale/linear_scale.dart' show LinearScale;
 import 'package:aesth/src/coord/coord.dart' show Coord;
 
 class MyCoord extends Coord {
-  void init(Point start, Point end) {}
+  void init(Offset start, Offset end) {}
 
-  Point convertPoint(Point point) => Point(
-    point.x * 100,
-    point.y * 200,
+  Offset convertPoint(Offset point) => Offset(
+    point.dx * 100,
+    point.dy * 200,
   );
 
-  Point invertPoint(Point point) => null;
+  Offset invertPoint(Offset point) => null;
 }
 
 main() {

@@ -1,7 +1,6 @@
-import 'dart:ui' show Canvas, Path;
+import 'dart:ui' show Canvas, Path, Rect;
 
 import './element.dart';
-import './util/bbox.dart' show BBox;
 
 abstract class Shape extends Element { 
   final isShape = true;
@@ -16,14 +15,7 @@ abstract class Shape extends Element {
   }
 
   @override
-  BBox getBBox() {
-    if (this.bbox == null) {
-      this.bbox = this.calculateBox();
-    }
-    return this.bbox;
-  }
-
-  BBox calculateBox();
+  Rect getBBox() => this.path.getBounds();
 
   void createPath();
 }

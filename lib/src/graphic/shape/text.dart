@@ -2,7 +2,6 @@ import 'dart:ui' show Canvas, Offset;
 
 import 'package:flutter/painting.dart' show TextSpan, TextPainter, TextAlign, TextWidthBasis;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Text extends Shape {
@@ -40,11 +39,5 @@ class Text extends Shape {
       textWidthBasis: this.textWidthBasis,
     );
     painter.paint(canvas, Offset(this.x, this.y));
-  }
-
-  @override
-  BBox calculateBox() {
-    // TODO: implement calculateBox
-    return null;
   }
 }

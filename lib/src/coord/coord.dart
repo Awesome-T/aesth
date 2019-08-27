@@ -1,6 +1,4 @@
-import 'dart:math';
-
-import 'package:aesth/src/chart/plot.dart';
+import 'dart:ui' show Offset, Rect;
 
 class Band {
   Band(this.start, this.end);
@@ -11,11 +9,11 @@ class Band {
 
 abstract class Coord {
   Coord({this.plot, this.start, this.end, this.transposed}) {
-    Point start;
-    Point end;
+    Offset start;
+    Offset end;
     if (this.plot != null) {
-      start = this.plot.bl;
-      end = this.plot.tr;
+      start = this.plot.bottomLeft;
+      end = this.plot.topRight;
       this.start = start;
       this.end = end;
     } else {
@@ -33,26 +31,26 @@ abstract class Coord {
 
   bool transposed;
 
-  Plot plot;
+  Rect plot;
 
-  Point start;
+  Offset start;
 
-  Point end;
+  Offset end;
 
   Band x;
 
   Band y;
 
-  void init(Point start, Point end);
+  void init(Offset start, Offset end);
 
-  Point convertPoint(Point point);
+  Offset convertPoint(Offset point);
 
-  Point invertPoint(Point point);
+  Offset invertPoint(Offset point);
 
-  void reset(Plot plot) {
+  void reset(Rect plot) {
     this.plot = plot;
-    this.start = plot.bl;
-    this.end = plot.tr;
-    this.init(plot.bl, plot.tr);
+    this.start = plot.bottomLeft;
+    this.end = plot.topRight;
+    this.init(plot.bottomLeft, plot.topRight);
   }
 }

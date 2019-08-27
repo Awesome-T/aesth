@@ -1,14 +1,12 @@
-import 'dart:math';
+import 'dart:ui' show Offset, Rect;
 
-import 'package:aesth/src/chart/plot.dart';
-
-import 'coord.dart';
+import './coord.dart';
 
 class RectCoord extends Coord {
   RectCoord({
-    Plot plot,
-    Point start,
-    Point end,
+    Rect plot,
+    Offset start,
+    Offset end,
     bool transposed = false,
   }) : super(
     plot: plot,
@@ -22,37 +20,37 @@ class RectCoord extends Coord {
   final isRect = true;
 
   @override
-  void init(Point<num> start, Point<num> end) {
-    this.x = Band(start.x, end.x);
-    this.y = Band(start.y, end.y);
+  void init(Offset start, Offset end) {
+    this.x = Band(start.dx, end.dx);
+    this.y = Band(start.dy, end.dy);
   }
 
   @override
-  Point<num> convertPoint(Point<num> point) {
+  Offset convertPoint(Offset point) {
     final transposed = this.transposed;
-    final xDim = transposed ? (Point p) => p.y : (Point p) => p.x;
-    final yDim = transposed ? (Point p) => p.x : (Point p) => p.y;
+    final xDim = transposed ? (Offset p) => p.dy : (Offset p) => p.dx;
+    final yDim = transposed ? (Offset p) => p.dx : (Offset p) => p.dy;
     final x = this.x;
     final y = this.y;
-    return Point(
+    return Offset(
       x.start + (x.end - x.start) * xDim(point),
       y.start + (y.end - y.start) * yDim(point),
     );
   }
 
   @override
-  Point<num> invertPoint(Point<num> point) {
+  Offset invertPoint(Offset point) {
     final transposed = this.transposed;
     final x = this.x;
     final y = this.y;
     return transposed
-      ? Point(
-        (point.y - y.start) / (y.end - y.start),
-        (point.x - x.start) / (x.end - x.start),
+      ? Offset(
+        (point.dy - y.start) / (y.end - y.start),
+        (point.dx - x.start) / (x.end - x.start),
       )
-      : Point(
-        (point.x - x.start) / (x.end - x.start),
-        (point.y - y.start) / (y.end - y.start),
+      : Offset(
+        (point.dx - x.start) / (x.end - x.start),
+        (point.dy - y.start) / (y.end - y.start),
       );
   }
 }

@@ -1,7 +1,5 @@
-import 'dart:ui' show Path;
-import 'dart:math' show Point;
+import 'dart:ui' show Path, Offset;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Polygon extends Shape {
@@ -11,7 +9,7 @@ class Polygon extends Shape {
 
   final type = 'polygon';
 
-  List<Point> points;
+  List<Offset> points;
 
   @override
   void createPath() {
@@ -22,14 +20,11 @@ class Polygon extends Shape {
     for (var i = 0; i < points.length; i++) {
       final point = points[i];
       if (i == 0) {
-        path.moveTo(point.x, point.y);
+        path.moveTo(point.dx, point.dy);
       } else {
-        path.lineTo(point.x, point.y);
+        path.lineTo(point.dx, point.dy);
       }
     }
     path.close();
   }
-
-  @override
-  BBox calculateBox() => BBox.fromPoints(this.points);
 }

@@ -1,6 +1,5 @@
-import 'dart:ui' show Canvas, Paint, PaintingStyle;
+import 'dart:ui' show Canvas, Paint, PaintingStyle, Rect;
 
-import './util/bbox.dart' show BBox;
 import './util/matrix.dart' show Matrix, TransAction;
 import './util/vector2.dart' show Vector2;
 import './shape.dart' show Shape;
@@ -27,7 +26,7 @@ abstract class Element {
   Paint paint;
 
   Shape clip;
-  BBox bbox = BBox(0, 0, 0, 0);
+  Rect bbox = Rect.zero;
   Matrix matrix = Matrix(1, 0, 0, 1, 0, 0);
   num originX = 0;
   num originY = 0;
@@ -98,7 +97,7 @@ abstract class Element {
     this.destroyed = true;
   }
 
-  BBox getBBox();
+  Rect getBBox();
 
   Element transform(List<TransAction> actions) {
     this.matrix.transform(actions);

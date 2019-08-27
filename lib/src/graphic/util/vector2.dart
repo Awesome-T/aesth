@@ -4,6 +4,7 @@
 
 import 'dart:typed_data';
 import 'dart:math' as math;
+import 'dart:ui' show Offset;
 
 import 'package:vector_math/vector_math_64.dart' show Vector;
 import 'package:vector_math/hash.dart' as quiver;
@@ -419,9 +420,9 @@ class Vector2 implements Vector {
   Vector2 get tt => yy;
 
   // expended methods
-  factory Vector2.fromPoint(math.Point point) => Vector2.zero()..setValues(point.x, point.y);
+  factory Vector2.fromOffset(Offset point) => Vector2.zero()..setValues(point.dx, point.dy);
 
-  math.Point toPoint() => math.Point(_v2storage[0], _v2storage[1]);
+  Offset toOffset() => Offset(_v2storage[0], _v2storage[1]);
 
   void transformMat2d(Matrix m) {
 

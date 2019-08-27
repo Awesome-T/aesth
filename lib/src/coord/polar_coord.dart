@@ -1,16 +1,16 @@
 import 'dart:math';
+import 'dart:ui' show Offset, Rect;
 
-import 'package:aesth/src/chart/plot.dart';
 import 'package:aesth/src/graphic/util/vector2.dart';
 import 'package:aesth/src/graphic/util/matrix.dart';
 
-import 'coord.dart';
+import './coord.dart';
 
 class PolarCoord extends Coord {
   PolarCoord({
-    Plot plot,
-    Point start,
-    Point end,
+    Rect plot,
+    Offset start,
+    Offset end,
     bool transposed = false,
 
     this.radius,
@@ -28,7 +28,7 @@ class PolarCoord extends Coord {
 
   final isPolar = true;
 
-  Point center;
+  Offset center;
 
   num radius;
 
@@ -43,24 +43,24 @@ class PolarCoord extends Coord {
   num circleRadius;
 
   @override
-  void init(Point<num> start, Point<num> end) {
+  void init(Offset start, Offset end) {
     final inner = (this.inner == 0 || this.inner == null) ? this.innerRadius : this.inner;
-    final width = (end.x - start.x).abs();
-    final height = (end.y - start.y).abs();
+    final width = (end.dx - start.dx).abs();
+    final height = (end.dy - start.dy).abs();
 
     var maxRadius;
     var center;
     if (this.startAngle == -pi && this.endAngle == 0) {
       maxRadius = min(width / 2, height);
-      center = Point(
-        (start.x + end.x) / 2,
-        start.y.toDouble(),  // ensure double for Vector2
+      center = Offset(
+        (start.dx + end.dx) / 2,
+        start.dy.toDouble(),  // ensure double for Vector2
       );
     } else {
       maxRadius = min(width, height) / 2;
-      center = Point(
-        (start.x + end.x) / 2,
-        (start.y + end.y) / 2,
+      center = Offset(
+        (start.dx + end.dx) / 2,
+        (start.dy + end.dy) / 2,
       );
     }
 
@@ -85,25 +85,25 @@ class PolarCoord extends Coord {
   }
 
   @override
-  Point<num> convertPoint(Point<num> point) {
+  Offset convertPoint(Offset point) {
     final center = this.center;
     final transposed = this.transposed;
-    final xDim = transposed ? (Point p) => p.y : (Point p) => p.x;
-    final yDim = transposed ? (Point p) => p.x : (Point p) => p.y;
+    final xDim = transposed ? (Offset p) => p.dy : (Offset p) => p.dx;
+    final yDim = transposed ? (Offset p) => p.dx : (Offset p) => p.dy;
     final x = this.x;
     final y = this.y;
 
     final angle = x.start + (x.end - x.start) * xDim(point);
     final radius = y.start + (y.end - y.start) * yDim(point);
 
-    return Point(
-      center.x + cos(angle) * radius,
-      center.y + sin(angle) * radius,
+    return Offset(
+      center.dx + cos(angle) * radius,
+      center.dy + sin(angle) * radius,
     );
   }
 
   @override
-  Point<num> invertPoint(Point<num> point) {
+  Offset invertPoint(Offset point) {
     final center = this.center;
     final transposed = this.transposed;
     final x = this.x;
@@ -116,9 +116,9 @@ class PolarCoord extends Coord {
     startV.transformMat2d(m);
     startV = Vector2(startV.x, startV.y);
 
-    final pointV = Vector2(point.x - center.x, point.y - center.y);
+    final pointV = Vector2(point.dx - center.dx, point.dy - center.dy);
     if (pointV.zero()) {
-      return Point(0, 0);
+      return Offset(0, 0);
     }
 
     var theta = startV.angleTo(pointV, x.end < x.start);
@@ -130,11 +130,11 @@ class PolarCoord extends Coord {
     percentX = x.end - x.start > 0 ? percentX : -percentX;
     final percentY = (l - y.start) / (y.end - y.start);
     return transposed
-      ? Point(
+      ? Offset(
         percentY,
         percentX,
       )
-      : Point(
+      : Offset(
         percentX,
         percentY,
       );

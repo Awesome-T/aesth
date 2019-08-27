@@ -1,22 +1,20 @@
-import 'dart:math' show Point;
+import 'dart:ui' show Offset, Rect;
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:aesth/src/chart/plot.dart' show Plot;
-
 main() {
   group('plot', () {
-    final plot = Plot(
-      Point(400, 0),
-      Point(0, 400),
+    final plot = Rect.fromPoints(
+      Offset(400, 0),
+      Offset(0, 400),
     );
 
     test('isInRange', () {
-      final p = Point(250, 350);
-      expect(plot.isInRange(p), true);
+      final p = Offset(250, 350);
+      expect(plot.contains(p), true);
 
-      expect(plot.isInRange(Point(300, 500)), false);
-      expect(plot.isInRange(Point(200, 300)), true);
+      expect(plot.contains(Offset(300, 500)), false);
+      expect(plot.contains(Offset(200, 300)), true);
     });
 
     test('width', () {
@@ -28,36 +26,27 @@ main() {
     });
 
     test('tl', () {
-      final tl = plot.tl;
-      expect(tl.x, 0);
-      expect(tl.y, 0);
+      final tl = plot.topLeft;
+      expect(tl.dx, 0);
+      expect(tl.dy, 0);
     });
 
     test('tr', () {
-      final tr = plot.tr;
-      expect(tr.x, 400);
-      expect(tr.y, 0);
+      final tr = plot.topRight;
+      expect(tr.dx, 400);
+      expect(tr.dy, 0);
     });
 
     test('bl', () {
-      final bl = plot.bl;
-      expect(bl.x, 0);
-      expect(bl.y, 400);
+      final bl = plot.bottomLeft;
+      expect(bl.dx, 0);
+      expect(bl.dy, 400);
     });
 
     test('br', () {
-      final br = plot.br;
-      expect(br.x, 400);
-      expect(br.y, 400);
-    });
-
-    test('reset', () {
-      plot.reset(
-        Point(0, 0),
-        Point(300, 200),
-      );
-      expect(plot.width, 300);
-      expect(plot.height, 200);
+      final br = plot.bottomRight;
+      expect(br.dx, 400);
+      expect(br.dy, 400);
     });
   });
 }

@@ -1,6 +1,5 @@
 import 'dart:ui' show Path;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Line extends Shape {
@@ -24,7 +23,4 @@ class Line extends Shape {
     path.moveTo(x1, y1);
     path.lineTo(x2, y2);
   }
-
-  @override
-  BBox calculateBox() => BBox.fromLine(x1, y1, x2, y2, this.paint.strokeWidth);
 }

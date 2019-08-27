@@ -1,7 +1,6 @@
 import 'dart:ui' show Rect, Offset, Path;
 import 'dart:math' show pi;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Arc extends Shape {
@@ -35,7 +34,4 @@ class Arc extends Shape {
       true,
     );
   }
-
-  @override
-  BBox calculateBox() => BBox.fromArc(x, y, r, startAngle, endAngle, anticlockwise);
 }

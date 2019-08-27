@@ -1,19 +1,18 @@
-import 'dart:math' show Point;
+import 'dart:ui' show Offset, Rect;
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:aesth/src/chart/plot.dart' show Plot;
 import 'package:aesth/src/coord/rect_coord.dart' show RectCoord;
 
 main() {
   group('coord rect', () {
-    final plot = Plot(
-      Point(0, 0),
-      Point(400, 400),
+    final plot = Rect.fromPoints(
+      Offset(0, 0),
+      Offset(400, 400),
     );
     final rect = RectCoord(
-      start: plot.bl,
-      end: plot.tr,
+      start: plot.bottomLeft,
+      end: plot.topRight,
     );
 
     test('constructor', () {
@@ -21,96 +20,96 @@ main() {
     });
 
     test('convertPoint', () {
-      Point<num> p = Point(0, 0);
+      Offset p = Offset(0, 0);
       p = rect.convertPoint(p);
-      expect(p.x, 0);
-      expect(p.y, 400);
+      expect(p.dx, 0);
+      expect(p.dy, 400);
 
-      p = Point(0, 1);
+      p = Offset(0, 1);
       p = rect.convertPoint(p);
-      expect(p.x, 0);
-      expect(p.y, 0);
+      expect(p.dx, 0);
+      expect(p.dy, 0);
 
-      p = Point(1, 0.5);
+      p = Offset(1, 0.5);
       p = rect.convertPoint(p);
-      expect(p.x, 400);
-      expect(p.y, 200);
+      expect(p.dx, 400);
+      expect(p.dy, 200);
 
-      p = Point(0.3, 0.7);
+      p = Offset(0.3, 0.7);
       p = rect.convertPoint(p);
-      expect(p.x, 120);
-      expect(p.y, 120);
+      expect(p.dx, 120);
+      expect(p.dy, 120);
     });
 
     test('invertPoint', () {
-      Point<num> p = Point(200, 200);
+      Offset p = Offset(200, 200);
       p = rect.invertPoint(p);
-      expect(p.x, 0.5);
-      expect(p.y, 0.5);
+      expect(p.dx, 0.5);
+      expect(p.dy, 0.5);
 
-      p = Point(0, 400);
+      p = Offset(0, 400);
       p = rect.invertPoint(p);
-      expect(p.x, 0);
-      expect(p.y, 0);
+      expect(p.dx, 0);
+      expect(p.dy, 0);
 
-      p = Point(400, 400);
+      p = Offset(400, 400);
       p = rect.invertPoint(p);
-      expect(p.x, 1);
-      expect(p.y, 0);
+      expect(p.dx, 1);
+      expect(p.dy, 0);
 
-      p = Point(120, 120);
+      p = Offset(120, 120);
       p = rect.invertPoint(p);
-      expect(p.x, 0.3);
-      expect(p.y, 0.7);
+      expect(p.dx, 0.3);
+      expect(p.dy, 0.7);
     });
 
     final rect1 = RectCoord(
-      start: plot.bl,
-      end: plot.tr,
+      start: plot.bottomLeft,
+      end: plot.topRight,
       transposed: true,
     );
     test('transposed convertPoint', () {
-      Point<num> p = Point(0, 0);
+      Offset p = Offset(0, 0);
       p = rect1.convertPoint(p);
-      expect(p.x, 0);
-      expect(p.y, 400);
+      expect(p.dx, 0);
+      expect(p.dy, 400);
 
-      p = Point(1, 0.5);
+      p = Offset(1, 0.5);
       p = rect1.convertPoint(p);
-      expect(p.x, 200);
-      expect(p.y, 0);
+      expect(p.dx, 200);
+      expect(p.dy, 0);
 
-      p = Point(0.5, 1);
+      p = Offset(0.5, 1);
       p = rect1.convertPoint(p);
-      expect(p.x, 400);
-      expect(p.y, 200);
+      expect(p.dx, 400);
+      expect(p.dy, 200);
 
-      p = Point(0.3, 0.7);
+      p = Offset(0.3, 0.7);
       p = rect1.convertPoint(p);
-      expect(p.x, 280);
-      expect(p.y, 280);
+      expect(p.dx, 280);
+      expect(p.dy, 280);
     });
 
     test('transposed invertPoint', () {
-      Point<num> p = Point(0, 400);
+      Offset p = Offset(0, 400);
       p = rect1.invertPoint(p);
-      expect(p.x, 0);
-      expect(p.y, 0);
+      expect(p.dx, 0);
+      expect(p.dy, 0);
 
-      p = Point(200, 0);
+      p = Offset(200, 0);
       p = rect1.invertPoint(p);
-      expect(p.x, 1);
-      expect(p.y, 0.5);
+      expect(p.dx, 1);
+      expect(p.dy, 0.5);
 
-      p = Point(400, 200);
+      p = Offset(400, 200);
       p = rect1.invertPoint(p);
-      expect(p.x, 0.5);
-      expect(p.y, 1);
+      expect(p.dx, 0.5);
+      expect(p.dy, 1);
 
-      p = Point(280, 280);
+      p = Offset(280, 280);
       p = rect1.invertPoint(p);
-      expect(p.x, 0.3);
-      expect(p.y, 0.7);
+      expect(p.dx, 0.3);
+      expect(p.dy, 0.7);
     });
   });
 }

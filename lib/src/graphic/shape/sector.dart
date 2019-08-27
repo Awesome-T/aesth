@@ -1,7 +1,6 @@
 import 'dart:ui' show Rect, Offset, Path;
 import 'dart:math' show pi, sin, cos;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Sector extends Shape {
@@ -46,11 +45,5 @@ class Sector extends Shape {
       -sweepAngle,
       false,
     );
-  }
-
-  @override
-  BBox calculateBox() {
-    // TODO: implement calculateBox
-    return null;
   }
 }

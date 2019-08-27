@@ -355,3 +355,19 @@ sector绘制时，先不单独处理r0=0的情况
 
 
 text的span完全可设置
+
+
+
+由于path本身有生成rect包含框的方法，所以尝试移除BBox定义，使用Rect、path本身的方法，对应字段仍叫bbox，注意两个b同时大小写，
+
+chart/plot 好像也是没有必要的，用Rect代替
+
+path还是要在createPath方法里new的，因为防止多次调用，理论上来讲允许bbox为null
+
+
+
+对于点和框，为保持和Path一致，一律使用ui包的Rect和Offset，而不用math包的Rectangle和Point
+
+只有在涉及mathmatic转换时，用vector2（目前还有smooth中也用）
+
+> 在google/charts中，在common中，完全没有引入dart:ui库，因此使用Rectangle和Point，在flutter中用的比较乱。而fl_charts中则统一用Rect和Offset

@@ -1,34 +1,23 @@
-import 'dart:math' as math;
+import 'dart:ui' show Rect, Offset;
 
 import 'vector2.dart' show Vector2;
 
 class SmoothDest {
   SmoothDest(this.cp1, this.cp2, this.p);
 
-  final math.Point cp1;
-  final math.Point cp2;
+  final Offset cp1;
+  final Offset cp2;
   // to point
-  final math.Point p;
+  final Offset p;
 }
 
-class SmoothPath extends SmoothDest {
-  SmoothPath(
-    this.p0,
-    math.Point cp1,
-    math.Point cp2,
-    math.Point p,
-  ) : super(cp1, cp2, p);
-
-  final math.Point p0;
-}
-
-List<math.Point> _smoothBezier(
-  List<math.Point> points,
+List<Offset> _smoothBezier(
+  List<Offset> points,
   num smooth,
   bool isLoop,
-  [math.Rectangle constraint,]
+  [Rect constraint,]
 ) {
-  final cps = <math.Point>[];
+  final cps = <Offset>[];
 
   Vector2 prevVector;
   Vector2 nextVector;
@@ -41,27 +30,27 @@ List<math.Point> _smoothBezier(
     max = Vector2(double.negativeInfinity, double.negativeInfinity);
 
     for (final point in points) {
-      vector = Vector2.fromPoint(point);
+      vector = Vector2.fromOffset(point);
       Vector2.min(min, vector, min);
       Vector2.max(max, vector, max);
     }
-    Vector2.min(min, Vector2.fromPoint(constraint.topLeft), min);
-    Vector2.max(max, Vector2.fromPoint(constraint.bottomRight), min);
+    Vector2.min(min, Vector2.fromOffset(constraint.topLeft), min);
+    Vector2.max(max, Vector2.fromOffset(constraint.bottomRight), min);
   }
 
   final len = points.length;
   for (var i = 0; i < len; i++) {
-    vector = Vector2.fromPoint(points[i]);
+    vector = Vector2.fromOffset(points[i]);
     if (isLoop) {
-      prevVector = Vector2.fromPoint(points[i > 0 ? i - 1 : len - 1]);
-      nextVector = Vector2.fromPoint(points[(i + 1) % len]);
+      prevVector = Vector2.fromOffset(points[i > 0 ? i - 1 : len - 1]);
+      nextVector = Vector2.fromOffset(points[(i + 1) % len]);
     } else {
       if (i == 0 || i == len -1) {
-        cps.add(vector.toPoint());
+        cps.add(vector.toOffset());
         continue;
       } else {
-        prevVector = Vector2.fromPoint(points[i - 1]);
-        nextVector = Vector2.fromPoint(points[i + 1]);
+        prevVector = Vector2.fromOffset(points[i - 1]);
+        nextVector = Vector2.fromOffset(points[i + 1]);
       }
     }
 
@@ -88,8 +77,8 @@ List<math.Point> _smoothBezier(
       Vector2.min(cp1, max, cp1);
     }
 
-    cps.add(cp0.toPoint());
-    cps.add(cp1.toPoint());
+    cps.add(cp0.toOffset());
+    cps.add(cp1.toOffset());
   }
 
   if (isLoop) {
@@ -99,9 +88,9 @@ List<math.Point> _smoothBezier(
 }
 
 List<SmoothDest> _catmullRom2bezier(
-  List<math.Point> pointList,
+  List<Offset> pointList,
   bool z,
-  [math.Rectangle constraint,]
+  [Rect constraint,]
 ) {
   final isLoop = z;
 
@@ -109,9 +98,9 @@ List<SmoothDest> _catmullRom2bezier(
   final len = pointList.length;
   final d1 = <SmoothDest>[];
 
-  math.Point cp1;
-  math.Point cp2;
-  math.Point p;
+  Offset cp1;
+  Offset cp2;
+  Offset p;
 
   for (var i = 0; i < len; i++) {
     cp1 = controlPointList[i * 2];

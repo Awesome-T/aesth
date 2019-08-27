@@ -1,6 +1,5 @@
 import 'dart:ui' show Rect, Offset, Path;
 
-import '../util/bbox.dart';
 import '../shape.dart' show Shape;
 
 class Circle extends Shape {
@@ -21,12 +20,4 @@ class Circle extends Shape {
     this.path = Path();
     this.path.addOval(Rect.fromCircle(center: Offset(this.x, this.y), radius: this.r));
   }
-
-  @override
-  BBox calculateBox() => BBox(
-    this.x - this.r,
-    this.x + this.r,
-    this.y - this.r,
-    this.y + this.r,
-  );
 }
