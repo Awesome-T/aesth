@@ -1,4 +1,4 @@
-import 'dart:ui' show Canvas, Offset;
+import 'dart:ui' show Canvas, Offset, Rect;
 
 import 'package:flutter/painting.dart' show TextSpan, TextPainter, TextAlign, TextWidthBasis;
 
@@ -25,19 +25,25 @@ class Text extends Shape {
   String ellipsis;
   TextWidthBasis textWidthBasis = TextWidthBasis.parent;
 
-  @override
-  void createPath() {
-  }
+  TextPainter painter;
 
   @override
-  void drawInner(Canvas canvas) {
-    final painter = TextPainter(
+  void createPath() {
+    this.painter = TextPainter(
       text: this.text,
       textAlign: this.textAlign,
       maxLines: this.maxLines,
       ellipsis: this.ellipsis,
       textWidthBasis: this.textWidthBasis,
     );
-    painter.paint(canvas, Offset(this.x, this.y));
   }
+
+  @override
+  void drawInner(Canvas canvas) {
+    this.createPath();
+    this.painter.paint(canvas, Offset(this.x, this.y));
+  }
+
+  @override
+  Rect getBBox() => Rect.fromLTWH(this.x, this.y, this.painter.width, this.painter.height);
 }

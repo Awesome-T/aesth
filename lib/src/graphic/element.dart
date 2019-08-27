@@ -11,8 +11,6 @@ abstract class Element {
   final isGroup = false;
   final isShape = false;
 
-  num width;
-  num height;
   int zIndex = 0;
   // index as a child
   int index;
@@ -26,7 +24,6 @@ abstract class Element {
   Paint paint;
 
   Shape clip;
-  Rect bbox = Rect.zero;
   Matrix matrix = Matrix(1, 0, 0, 1, 0, 0);
   num originX = 0;
   num originY = 0;

@@ -371,3 +371,7 @@ path还是要在createPath方法里new的，因为防止多次调用，理论上
 只有在涉及mathmatic转换时，用vector2（目前还有smooth中也用）
 
 > 在google/charts中，在common中，完全没有引入dart:ui库，因此使用Rectangle和Point，在flutter中用的比较乱。而fl_charts中则统一用Rect和Offset
+
+
+
+shapes没有按照f2的方法测试的必要

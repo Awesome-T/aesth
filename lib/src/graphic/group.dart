@@ -1,7 +1,5 @@
 import 'dart:ui' show Canvas, Rect;
-import 'dart:math' show min, max;
 
-import './util/vector2.dart' show Vector2;
 import './element.dart' show Element;
 import './container.dart' show Container;
 
@@ -20,16 +18,17 @@ class Group extends Element with Container {
 
   @override
   Rect getBBox() {
+    var groupBox = Rect.zero;
     final children = this.children;
     for (var child in children) {
       if (child.visible) {
         final box = child.getBBox();
         if (box != null) {
-          this.bbox = this.bbox.expandToInclude(box);
+          groupBox = groupBox.expandToInclude(box);
         }
       }
     }
-    return this.bbox;
+    return groupBox;
   }
 
   @override
