@@ -375,3 +375,49 @@ path还是要在createPath方法里new的，因为防止多次调用，理论上
 
 
 shapes没有按照f2的方法测试的必要
+
+
+
+f2接口测试
+
+图表没有title
+
+数据点上的标签通过guide或直接addShape添加，缺点是是通过数据换算确定position，而不是与标签挂钩，遇到stack等情况比较麻烦
+
+当要双轴时，不同轴要对应到不同的field
+
+目前x轴只能一个bottom
+
+当数据量大时需要横向滑动时，需设置chart.interaction('pan');    scrollBar只起到辅助作用可有可无，linear通过min，max指定显示范围；cat、timeCat通过values指定范围
+
+渐变色可用rgba，但注意不能有空格
+
+多个柱状图同时显示的关系分为堆叠stack和避让dodge
+
+纵横坐标翻转通过chart.coord({transposed: true})设置
+
+瀑布图：echarts是通过在下方堆叠透明的柱子实现；而f2是通过对应field为数组实现的
+
+极坐标系的radius和innerRadius都是0-1的相对值
+
+饼图与南丁格尔图：南丁格尔图就是比较标准的position中x(angle)是类别，y(radius)是值，而饼图是x是常量，y是值，然后堆叠，并翻转坐标系
+
+技巧：由于取field时是用的[]运算符，所以数据项可以为数组，然后attr通过"0*1"确定
+
+
+
+google/charts和fl_charts
+
+fl_charts的数据与样式杂糅在一起比较复杂，不好
+
+google/charts的方案不错，需传入行与列的相关回调
+
+采取最简化的方案，数据格式一律为List<Map<String, Object>>的方式，
+
+```
+[
+  {'field1': value1, 'field2': value2},
+]
+```
+
+便于将Map中的String类型的key与图形语法中的field关联
