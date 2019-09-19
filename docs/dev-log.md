@@ -421,3 +421,17 @@ google/charts的方案不错，需传入行与列的相关回调
 ```
 
 便于将Map中的String类型的key与图形语法中的field关联
+
+
+
+adjust
+
+adjust传入的参数dataArray在定义上为Object，但内部会通过as对其判断，必须是可进行adjust的（num, [num]),否则抛出异常
+
+@antv/adust中采用mixin的意义是只有调用index时才会mixin，而f2中并没有走index，因此是没有mixin的，其测试见f2
+
+由于processAdjust中stack会将传入的dataArray的值从num变成[num]，而你是无法确保传入的对应类型是Object的，故要拷贝一下，为防止int double等问题，全部手动深拷贝
+
+用强制规定类型然后addAll浅拷贝的方法，不能扩展里面引用元素的类型
+
+由于datum这一Map其中包含的不同field类型可能不同，不一定都和adjust的目标field一样是num或[num]，故processAdjust的结果类型和输入一样为List<List<Map<String, Object>>>，对应field如需用到num或[num]特性，使用时用as
