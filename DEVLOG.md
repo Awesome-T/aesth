@@ -437,3 +437,15 @@ adjust传入的参数dataArray在定义上为Object，但内部会通过as对其
 用强制规定类型然后addAll浅拷贝的方法，不能扩展里面引用元素的类型
 
 由于datum这一Map其中包含的不同field类型可能不同，不一定都和adjust的目标field一样是num或[num]，故processAdjust的结果类型和输入一样为List<List<Map<String, Object>>>，对应field如需用到num或[num]特性，使用时用as
+
+
+
+global不设version字段
+
+
+
+比较动态的对象，尽量用 Map<String, Object> 
+
+添加Map的deepMixIn方法
+
+antv中的deepMixin是会merge进去null，但不会merge进去undefined，而对于dart的Map，null和无此键等同，故都不merge进去

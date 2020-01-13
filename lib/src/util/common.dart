@@ -36,3 +36,31 @@ List<T> parseQuartet<T>(Object value) {
   }
   return [top, right, bottom, left];
 }
+
+void _deepMix(Map<String, Object> dist, Map<String, Object> src, [int level = 0]) {
+  const maxLevel = 5;
+  for (final key in src.keys) {
+    final value = src[key];
+    if (value is Map<String, Object>) {
+      if (!(dist[key] is Map<String, Object>)) {
+        dist[key] = <String, Object>{};
+      }
+      if (level < maxLevel) {
+        _deepMix(dist[key], value, level + 1);
+      } else {
+        dist[key] = src[key];
+      }
+    } else if(value is List) {
+      dist[key] = [...value];
+    } else if(value != null) {
+      dist[key] = value;
+    }
+  }
+}
+
+void deepMixin(List<Map<String, Object>> maps) {
+  final rst = maps[0];
+  for (var i = 1; i < maps.length; i++) {
+    _deepMix(rst, maps[i]);
+  }
+}
