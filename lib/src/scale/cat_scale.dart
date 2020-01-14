@@ -1,4 +1,4 @@
-import 'package:aesth/src/util/measures.dart';
+import 'package:aesth/src/util/api.dart' show Range;
 
 import 'scale.dart';
 import './auto/cat.dart' show catAuto;

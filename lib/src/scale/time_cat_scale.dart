@@ -1,4 +1,4 @@
-import 'package:aesth/src/util/measures.dart';
+import 'package:aesth/src/util/api.dart' show Range;
 import 'package:intl/intl.dart' show DateFormat;
 
 import 'scale.dart';

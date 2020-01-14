@@ -449,3 +449,15 @@ global不设version字段
 添加Map的deepMixIn方法
 
 antv中的deepMixin是会merge进去null，但不会merge进去undefined，而对于dart的Map，null和无此键等同，故都不merge进去
+
+为使用...等新特性，将最低dart版本要求提升到2.3.0
+
+
+
+util 分成三类
+
+api 暴露给用户接口的类、枚举定义
+
+tool 内部使用的工具类、函数，不暴露给用户
+
+common 编程语言相关工具，不暴露给用户

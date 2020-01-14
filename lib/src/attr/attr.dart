@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:aesth/src/base.dart';
+import 'package:aesth/src/util/tool.dart' show FieldAttachable;
 import 'package:aesth/src/scale/scale.dart';
 
 Object _toScaleString<F>(Scale<F> scale, F value) {

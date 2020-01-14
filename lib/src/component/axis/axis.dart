@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:aesth/src/base.dart';
+import 'package:aesth/src/util/tool.dart' show FieldAttachable;
 
 enum AxisPosition {
   top,

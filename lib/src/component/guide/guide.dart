@@ -1,5 +1,4 @@
 import 'package:aesth/src/scale/scale.dart';
-import 'package:aesth/src/util/measures.dart';
 
 enum GuideAnchorMode {
   max,

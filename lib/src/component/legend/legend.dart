@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:aesth/src/base.dart';
-import 'package:aesth/src/util/modes.dart';
+import 'package:aesth/src/util/tool.dart' show FieldAttachable;
+import 'package:aesth/src/util/api.dart' show AlignMode, GestureMode, SelectedMode;
 
 import 'legend_item.dart';
 

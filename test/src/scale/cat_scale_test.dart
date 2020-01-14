@@ -1,4 +1,4 @@
-import 'package:aesth/src/util/measures.dart';
+import 'package:aesth/src/util/api.dart' show Range;
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:aesth/src/scale/cat_scale.dart' show CatScale;

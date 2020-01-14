@@ -1,5 +1,5 @@
 import 'package:aesth/src/scale/scale.dart';
-import 'package:aesth/src/util/measures.dart';
+import 'package:aesth/src/util/api.dart' show Range;
 
 import 'attr.dart';
 

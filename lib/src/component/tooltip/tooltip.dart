@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:aesth/src/util/modes.dart';
+import 'package:aesth/src/util/api.dart' show GestureMode;
 import 'package:aesth/src/chart/chart.dart';
 
 typedef TooltipCallback<X, Y> = void Function(X x, Y y, String title, List items, Chart chart);

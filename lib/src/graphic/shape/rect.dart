@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:aesth/src/util/common.dart' show parseQuartet;
+import 'package:aesth/src/util/tool.dart' show parseQuartet;
 
 import '../shape.dart' show Shape;
 
