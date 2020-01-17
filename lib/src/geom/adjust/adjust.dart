@@ -5,6 +5,7 @@ abstract class Adjust {
   });
 
   final adjustNames = ['x', 'y'];
+  final type = 'base';
 
   String xField;
   String yField;

@@ -474,8 +474,22 @@ common 编程语言相关工具，不暴露给用户
 
 Geom中引用Attr时
 
-不能动态的创建类，故都作为基类Attr处理，通过其中的type属性区分
+~~不能动态的创建类，故都作为基类Attr处理，通过其中的type属性区分~~
 
-注意AttributeOption继承了FieldAttachable，f2中的field字段现在叫fields字段
+~~注意AttributeOption继承了FieldAttachable，f2中的field字段现在叫fields字段~~
 
-AttributeOption好像还需要一个coord字段
+~~AttributeOption好像还需要一个coord字段~~
+
+Adjust类需要添加一个type
+
+所有type字段都是基类叫base，具体的用小写驼峰
+
+f2 3.3.5依据的是0.0.6版本的scale，目前先用这个，部分字段上参考ts版的0.3.0。ts版中可见很多字段是放在基类上的，目前先按既有的思路做
+
+values仅在LinearScale上有，yScales（未翻转的）必为LinearScale
+
+
+
+需要创建一种机制 对于某一个种类（比如Attr），其基类上定义一个静态方法，传入type（实际类名都是type转变来的）字符串，动态实例化子类，此类方法就叫create，它需要有所有子类可能的参数作为命名参数。
+
+传的参数为Map<String, Object>的cfg，动态的东西尽量都用这种形式传

@@ -1,5 +1,9 @@
 import 'dart:math' as math;
 
+import 'package:aesth/src/attr/color_attr.dart';
+import 'package:aesth/src/attr/position_attr.dart';
+import 'package:aesth/src/attr/shape_attr.dart';
+import 'package:aesth/src/attr/size_attr.dart';
 import 'package:aesth/src/util/tool.dart' show FieldAttachable;
 import 'package:aesth/src/scale/scale.dart';
 
@@ -15,6 +19,56 @@ typedef AttrCallback = Object Function(List<Object> params);
 typedef AttrGradient<V> = V Function(num percent);
 
 abstract class Attr<V> extends FieldAttachable {
+  static Attr create<V>(String type, [Map<String, Object> cfg]) {
+    switch (type) {
+      case 'color':
+        return ColorAttr(
+          field: cfg['field'],
+          fieldList: cfg['fieldList'],
+          values: cfg['values'],
+          value: cfg['value'],
+          callback: cfg['callback'],
+          scales: cfg['scales'],
+          gradient: cfg['gradient'],
+          linear: cfg['linear'],
+
+          stops: cfg['stops'],
+        );
+      case 'position':
+        return PositionAttr(
+          field: cfg['field'],
+          fieldList: cfg['fieldList'],
+          values: cfg['values'],
+          value: cfg['value'],
+          callback: cfg['callback'],
+          scales: cfg['scales'],
+          
+          coord: cfg['coord'],
+        );
+      case 'shape':
+        return ShapeAttr(
+          field: cfg['field'],
+          fieldList: cfg['fieldList'],
+          values: cfg['values'],
+          value: cfg['value'],
+          callback: cfg['callback'],
+          scales: cfg['scales'],
+        );
+      case 'size':
+        return SizeAttr(
+          field: cfg['field'],
+          values: cfg['values'],
+          value: cfg['value'],
+          callback: cfg['callback'],
+          scales: cfg['scales'],
+          
+          range: cfg['range'],
+        );
+      default:
+        return null;
+    }
+  }
+
   Attr({
     String field,
     List<String> fieldList,

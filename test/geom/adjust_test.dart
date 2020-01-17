@@ -22,6 +22,7 @@ main() {
       );
 
       test('init', () {
+        expect(adjust.type, 'stack');
         expect(adjust.xField, 'a');
         expect(adjust.yField, 'b');
       });
@@ -119,6 +120,7 @@ main() {
       );
 
       test('init', () {
+        expect(adjust.type, 'dodge');
         expect(adjust.xField, 'a');
       });
 

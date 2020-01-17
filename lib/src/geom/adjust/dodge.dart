@@ -22,6 +22,8 @@ class Dodge extends Adjust {
     yField: yField,
   );
 
+  final type = 'dodge';
+
   num marginRatio;
   num dodgeRatio;
 

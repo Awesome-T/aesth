@@ -11,6 +11,8 @@ class Stack extends Adjust {
     yField: yField,
   );
 
+  final type = 'stack';
+
   bool reverseOrder;
 
   @override

@@ -57,4 +57,6 @@ class Chart<D> extends StatefulWidget {
 
   @override
   State createState() => null;
+
+  Scale createScale(String field) => null;
 }
