@@ -493,3 +493,28 @@ values仅在LinearScale上有，yScales（未翻转的）必为LinearScale
 需要创建一种机制 对于某一个种类（比如Attr），其基类上定义一个静态方法，传入type（实际类名都是type转变来的）字符串，动态实例化子类，此类方法就叫create，它需要有所有子类可能的参数作为命名参数。
 
 传的参数为Map<String, Object>的cfg，动态的东西尽量都用这种形式传
+
+
+
+data的形式为：
+
+```
+const data = [
+  { 'x': 0, 'y': 1 },
+  { 'x': 1, 'y': 2 },
+  { 'x': 2, 'y': 3 }
+];
+
+即
+
+List<Map<String, Object>>
+
+其中 Object 对于 LinearScale 为 num
+对于CatScale 为 任意类型
+对于TimeCatScale 为可解析的String 或 int
+
+其中 'x' 称为field
+{ 'x': 0, 'y': 1 } 称为row
+所有的x称为colum
+```
+

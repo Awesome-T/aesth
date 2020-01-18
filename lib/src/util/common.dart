@@ -42,3 +42,25 @@ Map<String, Object> deepMix(List<Map<String, Object>> maps) {
   }
   return rst;
 }
+
+Map groupToMap(List<Map<String, Object>> data, [List<String> fields]) {
+  if (fields == null) {
+    return {
+      0: data,
+    };
+  }
+
+  final callback = (Map<String, Object> row) {
+    var unique = '_';
+    for (var i = 0, l = fields.length; i < l; i++) {
+      unique += row[fields[i]]?.toString();
+    }
+    return unique;
+  };
+
+  final groups = {};
+  for (var i = 0, len = data.length; i < len; i++) {
+    final row = data[i];
+    final key = callback(row);
+  }
+}

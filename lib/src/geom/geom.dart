@@ -100,10 +100,33 @@ abstract class Geom extends Base {
     final scales = <Scale>[];
     GROUP_ATTRS.forEach((attrName) {
       final attr = this.getAttr(attrName);
-      if () {
-        
+      if (attr != null) {
+        final attrScales = attr.scales;
+        attrScales?.forEach((scale) {
+          if (scale != null && scale.isCategory && (!scales.contains(scale))) {
+            scales.add(scale);
+          }
+        });
       }
     });
+    return scales;
+  }
+
+  List _groupData(data) {
+    final colDefs = this.get('colDefs');
+    final groupScales = this._getGroupScales();
+    if (groupScales.isNotEmpty) {
+      final appendConditions = {};
+      final names = [];
+      groupScales.forEach((scale) {
+        final field = scale.field;
+        names.add(field);
+        if ((colDefs ?? const {})[field]?.values != null) { // users have defined
+          appendConditions[scale.field] = colDefs[field].values;
+        }
+      });
+      
+    }
   }
 
   void _initAttrs() {
@@ -159,7 +182,7 @@ abstract class Geom extends Base {
 
   }
 
-  Object getAttr(String name) =>
+  Attr getAttr(String name) =>
     this.get('attrs')[name];
 
   Scale getXScale() =>
