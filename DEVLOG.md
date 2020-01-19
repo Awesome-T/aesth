@@ -518,3 +518,6 @@ List<Map<String, Object>>
 所有的x称为colum
 ```
 
+
+
+Geom中的YScale只能是LinearScale

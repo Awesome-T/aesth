@@ -58,7 +58,7 @@ class TimeCatScale<F> extends CatScale<F> {
   void init() {
     final values = this.values;
     if (this.sortable) {
-      values.sort((v1, v2) => _toTimeStamp(v1) - _toTimeStamp(v2));
+      values.sort((v1, v2) => toTimeStamp(v1) - toTimeStamp(v2));
     }
 
     if (this.ticks == null) {
@@ -66,7 +66,7 @@ class TimeCatScale<F> extends CatScale<F> {
     }
   }
 
-  int _toTimeStamp(Object value) =>
+  int toTimeStamp(Object value) =>
     (value is String) ? this._dateFormat.parse(value).millisecondsSinceEpoch : value;
   
   List<F> calculateTicks() {
@@ -88,8 +88,8 @@ class TimeCatScale<F> extends CatScale<F> {
 
   @override
   num translate(Object value) {
-    int valueStamp = this._toTimeStamp(value);
-    num index = this.values.map(_toTimeStamp).toList().indexOf(valueStamp);
+    int valueStamp = this.toTimeStamp(value);
+    num index = this.values.map(toTimeStamp).toList().indexOf(valueStamp);
 
     if (index == -1) {
       if (value is num && value < this.values.length) {

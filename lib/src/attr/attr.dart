@@ -1,11 +1,12 @@
 import 'dart:math' as math;
 
-import 'package:aesth/src/attr/color_attr.dart';
-import 'package:aesth/src/attr/position_attr.dart';
-import 'package:aesth/src/attr/shape_attr.dart';
-import 'package:aesth/src/attr/size_attr.dart';
 import 'package:aesth/src/util/tool.dart' show FieldAttachable;
 import 'package:aesth/src/scale/scale.dart';
+
+import 'color_attr.dart';
+import 'position_attr.dart';
+import 'shape_attr.dart';
+import 'size_attr.dart';
 
 Object _toScaleString<F>(Scale<F> scale, F value) {
   if (value is String) {
