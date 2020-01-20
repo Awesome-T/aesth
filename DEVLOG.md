@@ -521,3 +521,7 @@ List<Map<String, Object>>
 
 
 Geom中的YScale只能是LinearScale
+
+Geom中的Shape：是一个Map，图形通过 registerFactory 和 registerShape 注册上去
+
+将Shape搞成一个静态类，有静态成员factorys

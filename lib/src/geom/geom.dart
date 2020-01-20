@@ -316,15 +316,15 @@ abstract class Geom extends Base {
     this.set('dataArray', mappedArray);
   }
 
-  void paint() {
-    final List<List<Map<String, Object>>> dataArray = this.get('dataArray');
-    final mappedArray = <List<Map<String, Object>>>[];
-    final shapeFactory = this.
-  }
+  // void paint() {
+  //   final List<List<Map<String, Object>>> dataArray = this.get('dataArray');
+  //   final mappedArray = <List<Map<String, Object>>>[];
+  //   final shapeFactory = this.
+  // }
 
-  getShapeFactory() {
-    var 
-  }
+  // getShapeFactory() {
+  //   var 
+  // }
 
   Attr getAttr(String name) =>
     this.get('attrs')[name];
