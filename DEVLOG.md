@@ -524,4 +524,27 @@ Geom中的YScale只能是LinearScale
 
 Geom中的Shape：是一个Map，图形通过 registerFactory 和 registerShape 注册上去
 
-将Shape搞成一个静态类，有静态成员factorys
+~~Shape做成可注册的估计是有原因的，保留这种动态的能力~~
+
+~~将Shape搞成一个静态类，有静态成员factorys~~
+
+注意现在只有registerShape
+
+注意所有shape也都是以小写字符串为标识符
+
+shape.factory.shapetyep
+
+\+ registShape 改成  registerShape
+
+\+ getShapePoints 改成 getPoints
+
+\+ drawShape 改成 draw
+
+尝试先尽量往静态的类继承方向做
+
+注意在目前的graphic中，container只是混入的类，需要用到的还是用Element
+
+
+
+先geom/shape 中规定points 为List<Offset>
+
