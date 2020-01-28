@@ -548,3 +548,7 @@ shape.factory.shapetyep
 
 先geom/shape 中规定points 为List<Offset>
 
+
+
+需要将 graphic/container 中 geom 中要用到的方法添上，canvas对象也需要实现
+
