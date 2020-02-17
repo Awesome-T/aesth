@@ -552,3 +552,26 @@ shape.factory.shapetyep
 
 需要将 graphic/container 中 geom 中要用到的方法添上，canvas对象也需要实现
 
+
+
+---
+
+2020-02-16 计划：
+
+重新理解所有类的功能，
+
+尽量按照 dart 静态语言的要求实现，参数类型固定，太js的可重新设计，不要数组和单值混用
+
+通过代码和测试理解类的功能，每个类用文档说明，
+
+以 ts 版的的 g2 和 g 为主要依据，f2 作为手势和简化的参考依据
+
+matrix等也尽量以dart版的为标准
+
+
+
+---
+
+fl_chart 中，大部分形状是以 canvas.drawXX(path, paint) 为核心绘图方式绘制的。text 是以textPaint.paint(canvas, offset) 的形式绘制的
+
+手势捕获都是以 GestureDetector 包裹 CustomPaint 的形式完成的
