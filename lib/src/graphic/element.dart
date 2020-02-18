@@ -1,5 +1,7 @@
 import 'dart:ui' show Canvas, Paint, PaintingStyle, Rect;
 
+import 'package:aesth/src/util/common.dart' show mix;
+
 import './util/matrix.dart' show Matrix, TransAction;
 import './util/vector2.dart' show Vector2;
 import './shape.dart' show Shape;
@@ -7,135 +9,96 @@ import './shape.dart' show Shape;
 bool isUnchanged(Matrix m) =>
   m[0] == 1 && m[1] == 0 && m[2] == 0 && m[3] == 1 && m[4] == 0 && m[5] == 0;
 
-abstract class Element {
-  final isGroup = false;
-  final isShape = false;
+const ALIAS_ATTRS_MAP = {
+  'stroke': 'strokeStyle',
+  'fill': 'fillStyle',
+  'opacity': 'globalAlpha',
+};
 
-  int zIndex = 0;
-  // index as a child
-  int index;
+const SHAPE_ATTRS = [
+  'fillStyle',
+  'font',
+  'globalAlpha',
+  'lineCap',
+  'lineWidth',
+  'lineJoin',
+  'miterLimit',
+  'shadowBlur',
+  'shadowColor',
+  'shadowOffsetX',
+  'shadowOffsetY',
+  'strokeStyle',
+  'textAlign',
+  'textBaseline',
+  'lineDash',
+  'shadow',
+];
 
-  bool visible = true;
-  bool destroyed = false;
+const CLIP_SHAPES = [ 'circle', 'sector', 'polygon', 'rect', 'polyline' ];
 
-  Element parent;
-  List<Element> children;
+class Element {
+  Element(Map<String, Object> cfg) {
+    this._initProperties();
+    mix([this._attrs, cfg]);
 
-  Paint paint;
-
-  Shape clip;
-  Matrix matrix = Matrix(1, 0, 0, 1, 0, 0);
-  num originX = 0;
-  num originY = 0;
-
-  void draw(Canvas canvas) {
-    if (this.destroyed) {
-      return;
-    }
-    if (this.visible) {
-      this.setCanvas(canvas);
-      this.drawInner(canvas);
-      canvas.restore();
-    }
-  }
-
-  setCanvas(Canvas canvas) {
-    canvas.save();
-    if (clip != null) {
-      clip.resetTransform(canvas);
-      clip.createPath();
-      canvas.clipPath(clip.path);
-    }
-    this.resetTransform(canvas);
-  }
-
-  bool hasFill() => this.paint.style == PaintingStyle.fill;
-
-  bool hasStroke() => this.paint.style == PaintingStyle.stroke;
-
-  void drawInner(Canvas canvas);
-
-  Element show() {
-    this.visible = true;
-    return this;
-  }
-
-  Element hide() {
-    this.visible = false;
-    return this;
-  }
-
-  Element _removeFromParent() {
-    final parent = this.parent;
-    if (parent != null) {
-      parent.children.remove(this);
+    final attrs = this._attrs['attrs'];
+    if (attrs != null) {
+      this.initAttrs(attrs);
     }
 
-    return this;
+    this.initTransform();
   }
 
-  void remove(bool destroy) {
-    if (destroy) {
-      this.destroy();
+  Map<String, Object> _attrs;
+
+  void _initProperties() {
+    this._attrs = {
+      'zIndex': 0,
+      'visible': true,
+      'destroyed': false,
+    };
+  }
+
+  Object get(String name) {
+    return this._attrs[name];
+  }
+
+  void set(String name, Object value) {
+    this._attrs[name] = value;
+  }
+
+  bool isGroup() {
+    return this.get('isGroup') as bool;
+  }
+
+  bool isShape() {
+    return this.get('isShape') as bool;
+  }
+
+  void initAttrs(Map<String, Object> attrs) {
+    this.attr(mix([this.getDefaultAttrs(), attrs]));
+  }
+
+  Map<String, Object> getDefaultAttrs() {
+    return {};
+  }
+
+  void _setAttr(String name, Object value) {
+    final attrs = this._attrs['attrs'] as Map<String, Object>;
+    if (name == 'clip') {
+      value = this._setAttrClip(value);
     } else {
-      this._removeFromParent();
+      final alias = ALIAS_ATTRS_MAP[name];
+      if (alias != null) {
+        attrs[alias] = value;
+      }
     }
+    attrs[name] = value;
   }
 
-  void destroy() {
-    final destroyed = this.destroyed;
-
-    if (destroyed) {
-      return;
-    }
-
-    this._removeFromParent();
-
-    this.destroyed = true;
+  Object _getAttr(String name) {
+    return (this._attrs['attrs'] as Map<String, Object>)[name];
   }
 
-  Rect getBBox();
-
-  Element transform(List<TransAction> actions) {
-    this.matrix.transform(actions);
-    return this;
-  }
-
-  Element setTransform(List<TransAction> actions) {
-    this.matrix = Matrix(1, 0, 0, 1, 0, 0);
-    return this.transform(actions);
-  }
-
-  void translate(double x, double y) {
-    this.matrix.translate(Vector2(x, y));
-  }
-
-  void rotate(double rad) {
-    this.matrix.rotate(rad);
-  }
-
-  void scale(double sx, double sy) {
-    this.matrix.scale(Vector2(sx, sy));
-  }
-
-  void moveTo(x, y) {
-    final cx = this.originX ?? 0;
-    final cy = this.originY ?? 0;
-    this.translate(x - cx, y - cy);
-    this.originX = x;
-    this.originY = y;
-  }
-
-  Element apply(Vector2 v) {
-    final m = this.matrix;
-    v.transformMat2d(m);
-    return this;
-  }
-
-  void resetTransform(Canvas canvas) {
-    final mo = this.matrix;
-    if (!isUnchanged(mo)) {
-      canvas.transform(mo.toCanvasMatrix());
-    }
-  }
+  void _setAttrClip()
 }

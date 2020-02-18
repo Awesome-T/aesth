@@ -575,3 +575,15 @@ matrix等也尽量以dart版的为标准
 fl_chart 中，大部分形状是以 canvas.drawXX(path, paint) 为核心绘图方式绘制的。text 是以textPaint.paint(canvas, offset) 的形式绘制的
 
 手势捕获都是以 GestureDetector 包裹 CustomPaint 的形式完成的
+
+
+
+geom/shape 先尝试这样做一下：
+
+所有shape都是类的形式，然后将工厂方法注册给 Shape
+
+f2 中的关系 Shape[className] 是 ShapeFactory ，ShapeFactory[shpeType] 是Shape
+
+
+
+图形

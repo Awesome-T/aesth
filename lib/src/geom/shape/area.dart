@@ -1,5 +1,8 @@
 import 'dart:ui' show Offset;
 
+import 'shape.dart';
+import 'package:aesth/src/graphic/group.dart' show Group;
+
 bool equals(num v1, num v2) =>
   (v1 - v2).abs() < 0.00001;
 
@@ -28,4 +31,14 @@ bool equalsCenter(List<Offset> points, Offset center) {
     }
   });
   return eqls;
+}
+
+class Area extends ShapeFactoryBase {
+  @override
+  ShapeBase getShape(String type) {
+    // TODO: implement getShape
+    return null;
+  }
+  
+  ShapeBase drawRectShape(List<Offset> topPoints, List<Offset> bottomPoints, Group container, )
 }

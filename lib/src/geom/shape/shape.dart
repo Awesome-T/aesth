@@ -45,7 +45,7 @@ abstract class ShapeFactoryBase {
   
   Coord _coord;
 
-  ShapeBase shape;
+  final Map<String, ShapeBase Function()> shapes = null;
 
   void setCoord(Coord coord) {
     this._coord = coord;
@@ -69,3 +69,5 @@ abstract class ShapeFactoryBase {
     shape.draw(cfg, container);
   }
 }
+
+final Shape = Map<String, ShapeFactoryBase Function()>();
