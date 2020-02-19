@@ -586,4 +586,10 @@ f2 中的关系 Shape[className] 是 ShapeFactory ，ShapeFactory[shpeType] 是S
 
 
 
-图形
+---
+
+一个图形引擎，应该是一个完全抽象的对象，在构造时传入 Canvas 和 ValueNotifier<自己的手势事件类型> ,只管一次绘制，不管需不需要重绘，裸用的时候在 paint 方法中调用
+
+要做一件事，就是将 g 中的各种参数尽可能的“dart化”
+
+addShape 方法以传入的 ShapeAttr 类型来决定画什么图，ShapeAttr（比如 EllipseAttr）命名参考 g 便于关联，参数参考canvas.draw，使其更 “dart化”
