@@ -1,23 +1,35 @@
+## 容器
+
 Canvas(ui.Canvas container, GestureNotifier gestureNotifier)
 
-ShapeAttr
+## 图形配置
 
-CircleAttr(Offset c, double radius, Paint paint)
+ShapeCfg
 
-EllipseAttr(Rect rect, Paint paint)
+CircleCfg(Offset center, double radius, Paint paint)
 
-ImageAttr(Image, Offset p, Paint paint)
+EllipseCfg(Rect rect, Paint paint)
 
-LineAttr(Offset p1, Offset p2, Paint paint)
+ImageCfg(Image image, Offset point, Paint paint)
 
-MarkerAttr(MarkerSymbol symbol, double radius, Paint paint)
+LineCfg(Offset point1, Offset point2, Paint paint)
 
-MarkerSymbol {circle, square, diamond, triangle, triangleDown}
+MarkerCfg(Symbols symbol, double radius, Paint paint)
 
-PathAttr
+Symbols {circle, square, diamond, triangle, triangleDown}
 
-PolygonAttr
+PathCfg(Path path, Paint paint, [Arrow startArrow, Arrow endArrow])
 
-RectAttr
+Arrow(Path path, double distance)
 
-TextAttr
+PolygonCfg(List<Offset> points, Paint paint)
+
+PolylineCfg(List<Offset> points, Paint paint, [Arrow startArrow, Arrow endArrow])
+
+RectCfg(Rect rect, Paint paint, [Radius radius])
+
+TextCfg(TextSpan textSpan)
+
+## 事件
+
+Gestures{}
