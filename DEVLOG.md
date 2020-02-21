@@ -586,6 +586,26 @@ f2 中的关系 Shape[className] 是 ShapeFactory ，ShapeFactory[shpeType] 是S
 
 
 
+
+
+
+
+
+
+
+
+
+
+将 Aesth 分成两个部分，
+
+canvas -- A canvas shape library, also the rendring engine for Aesth.
+
+chart -- A charting library with the Grammar of Graphics.
+
+之前的代码保存在archive-2020-02-21这个commit上
+
+
+
 ---
 
 一个图形引擎，应该是一个完全抽象的对象，在构造时传入 Canvas 和 ValueNotifier<自己的手势事件类型> ,只管一次绘制，不管需不需要重绘，裸用的时候在 paint 方法中调用
